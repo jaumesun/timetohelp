@@ -38,6 +38,9 @@ export const LandingPageComponent = props => {
   // http://schema.org
   // We are using JSON-LD format
   const siteTitle = config.siteTitle;
+  const introText1 = intl.formatMessage({ id: 'LandingPage.introText1' });
+  const introText2 = intl.formatMessage({ id: 'LandingPage.introText2' });
+  const introText3 = intl.formatMessage({ id: 'LandingPage.introText3' });
   const schemaTitle = intl.formatMessage({ id: 'LandingPage.schemaTitle' }, { siteTitle });
   const schemaDescription = intl.formatMessage({ id: 'LandingPage.schemaDescription' });
   const schemaImage = `${config.canonicalRootURL}${facebookImage}`;
@@ -66,6 +69,13 @@ export const LandingPageComponent = props => {
           <TopbarContainer />
         </LayoutWrapperTopbar>
         <LayoutWrapperMain>
+           <div className={css.sections}>
+            <div className={css.intromessage}>
+              {introText1}&nbsp;
+              {introText2}&nbsp;
+              {introText3}
+            </div>
+          </div>       
           <div className={css.heroContainer}>
             <SectionHero className={css.hero} history={history} location={location} />
           </div>
