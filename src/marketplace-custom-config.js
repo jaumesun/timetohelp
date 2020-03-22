@@ -12,8 +12,21 @@ export const yogaStyles = [
 
 export const certificate = [
   { key: 'none', label: 'None', hideFromFilters: true, hideFromListingInfo: true },
-  { key: '200h', label: 'Registered yoga teacher 200h' },
-  { key: '500h', label: 'Registered yoga teacher 500h' },
+  { key: 'engineer', label: 'engineer' },
+  { key: 'journalist', label: 'journalist' },
+  { key: 'lawyer', label: 'lawyer' },
+  { key: 'medical-doctor', label: 'medical-doctor' },
+  { key: 'mechanic', label: 'mechanic' },
+  { key: 'nurse', label: 'nurse' },
+  { key: 'odontologist', label: 'odontologist' },
+  { key: 'pharmacist', label: 'pharmacist' },
+  { key: 'phsychologist', label: 'phsychologist' },
+  { key: 'police', label: 'police' },
+  { key: 'scientist', label: 'scientist' },
+  { key: 'teacher', label: 'teacher' },
+  { key: 'technician', label: 'technician' },
+  { key: 'veterinarian', label: 'veterinarian' },
+  { key: 'other', label: 'other' },
 ];
 
 // Price filter configuration
