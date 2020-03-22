@@ -8,9 +8,12 @@ import { NamedLink } from '../../components';
 
 import css from './SectionLocations.css';
 
-import nyImage from './images/ny-yogi.jpg';
-import laImage from './images/la-yogi.jpg';
-import sfImage from './images/sf-yogi.jpg';
+import heaImage from './images/hea.jpg';
+import eduImage from './images/edu.jpg';
+import bzlImage from './images/bzl.jpg';
+import tecImage from './images/tec.jpg';
+import othImage from './images/oth.jpg';
+
 
 class LocationImage extends Component {
   render() {
@@ -30,10 +33,7 @@ const locationLink = (name, image, searchQuery) => {
         </div>
       </div>
       <div className={css.linkText}>
-        <FormattedMessage
-          id="SectionLocations.listingsInLocation"
-          values={{ location: nameText }}
-        />
+        <a>{name}</a>
       </div>
     </NamedLink>
   );
@@ -51,18 +51,28 @@ const SectionLocations = props => {
       </div>
       <div className={css.locations}>
         {locationLink(
-          'New York',
-          nyImage,
+          'Health',
+          heaImage,
           '?address=New%20York%20City%2C%20New%20York%2C%20USA&bounds=40.917576401307%2C-73.7008392055224%2C40.477399%2C-74.2590879797556'
         )}
         {locationLink(
-          'Los Angeles',
-          laImage,
+          'Education',
+          eduImage,
           '?address=Los%20Angeles%2C%20California%2C%20USA&bounds=34.161440999758%2C-118.121305008073%2C33.9018913203336%2C-118.521456965901'
         )}
         {locationLink(
-          'San Francisco',
-          sfImage,
+          'Business & Law',
+          bzlImage,
+          '?address=San%20Francisco%2C%20California%2C%20USA&bounds=37.8324430069081%2C-122.354995082683%2C37.6044780500533%2C-122.517910874663'
+        )}
+        {locationLink(
+          'Technical',
+          tecImage,
+          '?address=San%20Francisco%2C%20California%2C%20USA&bounds=37.8324430069081%2C-122.354995082683%2C37.6044780500533%2C-122.517910874663'
+        )}
+        {locationLink(
+          'Others',
+          othImage,
           '?address=San%20Francisco%2C%20California%2C%20USA&bounds=37.8324430069081%2C-122.354995082683%2C37.6044780500533%2C-122.517910874663'
         )}
       </div>

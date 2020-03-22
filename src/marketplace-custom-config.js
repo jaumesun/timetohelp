@@ -3,12 +3,11 @@
  */
 
 export const yogaStyles = [
-  { key: 'ashtanga', label: 'Ashtanga' },
-  { key: 'hatha', label: 'Hatha' },
-  { key: 'kundalini', label: 'Kundalini' },
-  { key: 'restorative', label: 'Restorative' },
-  { key: 'vinyasa', label: 'Vinyasa' },
-  { key: 'yin', label: 'Yin' },
+  { key: 'health', label: 'Health' },
+  { key: 'education', label: 'Education' },
+  { key: 'business & law', label: 'Business & Law' },
+  { key: 'Technical', label: 'Technical' },
+  { key: 'Other', label: 'Other' },
 ];
 
 export const certificate = [

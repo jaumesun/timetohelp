@@ -71,8 +71,8 @@ export const LandingPageComponent = props => {
         <LayoutWrapperMain>
            <div className={css.sections}>
             <div className={css.intromessage}>
-              {introText1}&nbsp;
-              {introText2}&nbsp;
+              {introText1}
+              <a href="/l/new">{introText2}</a>
               {introText3}
             </div>
           </div>       
