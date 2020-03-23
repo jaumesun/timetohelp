@@ -217,6 +217,7 @@ class EditListingWizard extends Component {
 
   handlePublishListing(id) {
     const { onPublishListingDraft, currentUser} = this.props;
+
     onPublishListingDraft(id);
   }
 
@@ -351,10 +352,8 @@ class EditListingWizard extends Component {
     const returnedAbnormallyFromStripe = returnURLType === STRIPE_ONBOARDING_RETURN_URL_FAILURE;
     const showVerificationNeeded = stripeConnected && requirementsMissing;
 
-    // Redirect from success URL to basic path for StripePayoutPage
-    if (returnedNormallyFromStripe && stripeConnected && !requirementsMissing) {
-      return <NamedRedirect name="EditListingPage" params={pathParams} />;
-    }
+    // CHANGED TO ALWAYS Redirect from success URL to basic path for StripePayoutPage
+    return <NamedRedirect name="EditListingPage" params={pathParams} />;
 
     return (
       <div className={classes} ref={setPortalRootAfterInitialRender}>
