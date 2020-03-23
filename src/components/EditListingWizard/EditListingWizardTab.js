@@ -252,7 +252,7 @@ const EditListingWizardTab = props => {
           onSubmit={values => {
             // We want to return the Promise to the form,
             // so that it doesn't close its modal if an error is thrown.
-            return onCompleteEditListingWizardTab(tab, values, true);
+            return onCompleteEditListingWizardTab(tab, values);
           }}
           onNextTab={() =>
             redirectAfterDraftUpdate(listing.id.uuid, params, tab, marketplaceTabs, history)
