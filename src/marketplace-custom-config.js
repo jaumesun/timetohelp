@@ -25,6 +25,7 @@ export const certificate = [
   { key: 'scientist', label: 'scientist' },
   { key: 'teacher', label: 'teacher' },
   { key: 'technician', label: 'technician' },
+  { key: 'trainer-fitness', label: 'trainer-fitness' },
   { key: 'veterinarian', label: 'veterinarian' },
   { key: 'other', label: 'other' },
 ];
