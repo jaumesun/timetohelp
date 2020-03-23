@@ -231,10 +231,7 @@ class EditListingWizard extends Component {
     if (stripeConnected && !requirementsMissing) {
       onPublishListingDraft(id);
     } else {
-      this.setState({
-        draftId: id,
-        showPayoutDetails: true,
-      });
+      onPublishListingDraft(id);
     }
   }
 
@@ -369,8 +366,10 @@ class EditListingWizard extends Component {
     const returnedAbnormallyFromStripe = returnURLType === STRIPE_ONBOARDING_RETURN_URL_FAILURE;
     const showVerificationNeeded = stripeConnected && requirementsMissing;
 
-    // CHANGED TO ALWAYS Redirect from success URL to basic path for StripePayoutPage
-    return <NamedRedirect name="EditListingPage" params={pathParams} />;
+    // Redirect from success URL to basic path for StripePayoutPage
+    if (returnedNormallyFromStripe && stripeConnected && !requirementsMissing) {
+      return <NamedRedirect name="EditListingPage" params={pathParams} />;
+    }
 
     return (
       <div className={classes} ref={setPortalRootAfterInitialRender}>
