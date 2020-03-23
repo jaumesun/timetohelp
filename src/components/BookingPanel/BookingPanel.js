@@ -111,14 +111,6 @@ const BookingPanel = props => {
           <h1 className={css.title}>{title}</h1>
         </div>
         <div className={css.bookingHeading}>
-          <div className={css.desktopPriceContainer}>
-            <div className={css.desktopPriceValue} title={priceTitle}>
-              {formattedPrice}
-            </div>
-            <div className={css.desktopPerUnit}>
-              <FormattedMessage id={unitTranslationKey} />
-            </div>
-          </div>
           <div className={css.bookingHeadingContainer}>
             <h2 className={titleClasses}>{title}</h2>
             {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
@@ -144,14 +136,6 @@ const BookingPanel = props => {
         ) : null}
       </ModalInMobile>
       <div className={css.openBookingForm}>
-        <div className={css.priceContainer}>
-          <div className={css.priceValue} title={priceTitle}>
-            {formattedPrice}
-          </div>
-          <div className={css.perUnit}>
-            <FormattedMessage id={unitTranslationKey} />
-          </div>
-        </div>
 
         {showBookingTimeForm ? (
           <Button
