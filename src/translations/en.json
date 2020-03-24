@@ -384,7 +384,7 @@
   "ListingCard.perUnit": "per hour",
   "ListingCard.unsupportedPrice": "({currency})",
   "ListingCard.unsupportedPriceTitle": "Unsupported currency ({currency})",
-  "ListingPage.bookingTitle": "Book a session with {title}",
+  "ListingPage.bookingTitle": "Book a videoconference session with {title}",
   "ListingPage.closedListing": "This helper profile has been closed and sessions can't be booked.",
   "ListingPage.contactUser": "Contact",
   "ListingPage.descriptionTitle": "helper profile",
