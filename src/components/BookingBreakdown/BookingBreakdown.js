@@ -96,48 +96,6 @@ export const BookingBreakdownComponent = props => {
         dateType={dateType}
         timeZone={timeZone}
       />
-      <LineItemUnitPriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-
-      <LineItemBasePriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemUnknownItemsMaybe transaction={transaction} intl={intl} />
-
-      <LineItemSubTotalMaybe
-        transaction={transaction}
-        unitType={unitType}
-        userRole={userRole}
-        intl={intl}
-      />
-      <LineItemRefundMaybe transaction={transaction} intl={intl} />
-
-      <LineItemCustomerCommissionMaybe
-        transaction={transaction}
-        isCustomer={isCustomer}
-        intl={intl}
-      />
-      <LineItemCustomerCommissionRefundMaybe
-        transaction={transaction}
-        isCustomer={isCustomer}
-        intl={intl}
-      />
-
-      <LineItemProviderCommissionMaybe
-        transaction={transaction}
-        isProvider={isProvider}
-        intl={intl}
-      />
-      <LineItemProviderCommissionRefundMaybe
-        transaction={transaction}
-        isProvider={isProvider}
-        intl={intl}
-      />
-
-      <LineItemTotalPrice transaction={transaction} isProvider={isProvider} intl={intl} />
-
-      {hasCommissionLineItem ? (
-        <span className={css.feeInfo}>
-          <FormattedMessage id="BookingBreakdown.commissionFeeNote" />
-        </span>
-      ) : null}
     </div>
   );
 };

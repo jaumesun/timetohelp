@@ -86,7 +86,8 @@
   @apply --marketplaceBodyFontStyles;
 
   color: var(--matterColorLight);
-  margin: 0 0 32px 0;
+  margin: 0 0 24px 0;
+  line-height: 18px;
 
   @apply --SectionHero_animation;
   animation-delay: 0.65s;
@@ -94,7 +95,15 @@
   @media (--viewportMedium) {
     max-width: var(--SectionHero_desktopTitleMaxWidth);
     margin: 0 0 63px 0;
+    line-height: 24px;
   }
+  @media (--viewportLarge) {
+    line-height: 24px;
+  }
+  @media (--viewportXLarge) {
+    line-height: 24px;
+  }
+    
 }
 
 .heroButton {

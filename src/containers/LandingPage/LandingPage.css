@@ -62,7 +62,7 @@
     font-family: 'sofiapro', Helvetica, Arial, sans-serif;
     font-weight: var(--fontWeightMedium);
     font-size: 15px;
-    line-height: 24px;
+    line-height: 18px;
 
   @media (--viewportMedium) {
     max-width: 100%;

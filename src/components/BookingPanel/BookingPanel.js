@@ -6,7 +6,6 @@ import { bool, func, node, object, oneOfType, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import { propTypes, LISTING_STATE_CLOSED, LINE_ITEM_NIGHT, LINE_ITEM_DAY } from '../../util/types';
-import { formatMoney } from '../../util/currency';
 import { parse, stringify } from '../../util/urlHelpers';
 import config from '../../config';
 import { ModalInMobile, Button } from '../../components';
@@ -17,19 +16,6 @@ import css from './BookingPanel.css';
 // This defines when ModalInMobile shows content as Modal
 const MODAL_BREAKPOINT = 1023;
 const TODAY = new Date();
-
-const priceData = (price, intl) => {
-  if (price && price.currency === config.currency) {
-    const formattedPrice = formatMoney(intl, price);
-    return { formattedPrice, priceTitle: formattedPrice };
-  } else if (price) {
-    return {
-      formattedPrice: `(${price.currency})`,
-      priceTitle: `Unsupported currency (${price.currency})`,
-    };
-  }
-  return {};
-};
 
 const openBookModal = (isOwnListing, isClosed, history, location) => {
   if (isOwnListing || isClosed) {
@@ -69,14 +55,12 @@ const BookingPanel = props => {
     intl,
   } = props;
 
-  const price = listing.attributes.price;
   const timeZone =
     listing.attributes.availabilityPlan && listing.attributes.availabilityPlan.timezone;
   const hasListingState = !!listing.attributes.state;
   const isClosed = hasListingState && listing.attributes.state === LISTING_STATE_CLOSED;
   const showBookingTimeForm = hasListingState && !isClosed;
   const showClosedListingHelpText = listing.id && isClosed;
-  const { formattedPrice, priceTitle } = priceData(price, intl);
   const isBook = !!parse(location.search).book;
 
   const subTitleText = !!subTitle
@@ -124,7 +108,6 @@ const BookingPanel = props => {
             submitButtonWrapperClassName={css.submitButtonWrapper}
             unitType={unitType}
             onSubmit={onSubmit}
-            price={price}
             isOwnListing={isOwnListing}
             listingId={listing.id}
             monthlyTimeSlots={monthlyTimeSlots}
