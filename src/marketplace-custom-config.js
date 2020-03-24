@@ -20,7 +20,7 @@ export const certificate = [
   { key: 'nurse', label: 'nurse' },
   { key: 'odontologist', label: 'odontologist' },
   { key: 'pharmacist', label: 'pharmacist' },
-  { key: 'phsychologist', label: 'phsychologist' },
+  { key: 'psychologist', label: 'psychologist' },
   { key: 'police', label: 'police' },
   { key: 'scientist', label: 'scientist' },
   { key: 'teacher', label: 'teacher' },
