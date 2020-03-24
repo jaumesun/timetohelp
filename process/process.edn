@@ -103,7 +103,7 @@
    :to :actor.role/provider,
    :template :new-booking-request}
 		{:name :notification/new-booking-request2,
-   :on :transition/request-payment_after_enquiry,                 
+   :on :transition/request-payment-after-enquiry,                 
    :to :actor.role/provider,
    :template :new-booking-request}   
   {:name :notification/booking-request-accepted,
