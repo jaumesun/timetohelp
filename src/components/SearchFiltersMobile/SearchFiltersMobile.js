@@ -159,7 +159,7 @@ class SearchFiltersMobileComponent extends Component {
       onManageDisableScrolling,
       selectedFiltersCount,
       certificateFilter,
-      yogaStylesFilter,
+      CatSpFilter,
       priceFilter,
       keywordFilter,
       intl,
@@ -202,20 +202,20 @@ class SearchFiltersMobileComponent extends Component {
       />
     ) : null;
 
-    const yogaStylesLabel = intl.formatMessage({ id: 'SearchFiltersMobile.yogaStylesLabel' });
+    const CatSpLabel = intl.formatMessage({ id: 'SearchFiltersMobile.CatSpLabel' });
 
-    const initialyogaStyles = this.initialValues(yogaStylesFilter.paramName);
+    const initialCatSp = this.initialValues(CatSpFilter.paramName);
 
-    const yogaStylesFilterElement = yogaStylesFilter ? (
+    const CatSpFilterElement = CatSpFilter ? (
       <SelectMultipleFilter
-        id="SearchFiltersMobile.yogaStylesFilter"
-        name="yogaStyles"
-        urlParam={yogaStylesFilter.paramName}
-        label={yogaStylesLabel}
+        id="SearchFiltersMobile.CatSpFilter"
+        name="CatSp"
+        urlParam={CatSpFilter.paramName}
+        label={CatSpLabel}
         onSubmit={this.handleSelectMultiple}
         liveEdit
-        options={yogaStylesFilter.options}
-        initialValues={initialyogaStyles}
+        options={CatSpFilter.options}
+        initialValues={initialCatSp}
       />
     ) : null;
 
@@ -283,9 +283,8 @@ class SearchFiltersMobileComponent extends Component {
           {this.state.isFiltersOpenOnMobile ? (
             <div className={css.filtersWrapper}>
               {keywordFilterElement}
-              {yogaStylesFilterElement}
+              {CatSpFilterElement}
               {certificateFilterElement}
-              {priceFilterElement}
             </div>
           ) : null}
 
@@ -308,7 +307,7 @@ SearchFiltersMobileComponent.defaultProps = {
   selectedFiltersCount: 0,
   filterParamNames: [],
   certificateFilter: null,
-  yogaStylesFilter: null,
+  CatSpFilter: null,
   priceFilter: null,
 };
 
@@ -327,7 +326,7 @@ SearchFiltersMobileComponent.propTypes = {
   selectedFiltersCount: number,
   filterParamNames: array,
   certificateFilter: propTypes.filterConfig,
-  yogaStylesFilter: propTypes.filterConfig,
+  CatSpFilter: propTypes.filterConfig,
   priceFilter: propTypes.filterConfig,
 
   // from injectIntl

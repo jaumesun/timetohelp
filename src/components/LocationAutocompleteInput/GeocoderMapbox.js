@@ -6,10 +6,10 @@ const { LatLng: SDKLatLng, LatLngBounds: SDKLatLngBounds } = sdkTypes;
 
 export const CURRENT_LOCATION_ID = 'current-location';
 
-const GENERATED_BOUNDS_DEFAULT_DISTANCE = 500; // meters
+const GENERATED_BOUNDS_DEFAULT_DISTANCE = 1000; // meters
 // Distances for generated bounding boxes for different Mapbox place types
 const PLACE_TYPE_BOUNDS_DISTANCES = {
-  address: 500,
+  address: 1000,
   country: 2000,
   region: 2000,
   postcode: 2000,

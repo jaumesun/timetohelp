@@ -2,7 +2,7 @@
  * Marketplace specific configuration.
  */
 
-export const yogaStyles = [
+export const CatSp = [
   { key: 'health', label: 'Health' },
   { key: 'education', label: 'Education' },
   { key: 'business & law', label: 'Business & Law' },

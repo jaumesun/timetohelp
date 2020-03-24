@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import SelectMultipleFilter from './SelectMultipleFilter';
 import { stringify, parse } from '../../util/urlHelpers';
 
-const URL_PARAM = 'pub_yogaStyles';
+const URL_PARAM = 'pub_CatSp';
 
 const options = [
   { key: 'ashtanga', label: 'Ashtanga' },
@@ -20,19 +20,19 @@ const handleSubmit = (urlParam, values, history) => {
   history.push(`${window.location.pathname}${queryParams}`);
 };
 
-const YogaStylesFilterPopup = withRouter(props => {
+const CatSpFilterPopup = withRouter(props => {
   const { history, location } = props;
 
   const params = parse(location.search);
-  const yogaStyles = params[URL_PARAM];
-  const initialValues = !!yogaStyles ? yogaStyles.split(',') : [];
+  const CatSp = params[URL_PARAM];
+  const initialValues = !!CatSp ? CatSp.split(',') : [];
 
   return (
     <SelectMultipleFilter
       id="SelectMultipleFilterPopupExample"
-      name="yogaStyles"
+      name="CatSp"
       urlParam={URL_PARAM}
-      label="yogaStyles"
+      label="CatSp"
       onSubmit={(urlParam, values) => handleSubmit(urlParam, values, history)}
       showAsPopup={true}
       liveEdit={false}
@@ -43,25 +43,25 @@ const YogaStylesFilterPopup = withRouter(props => {
   );
 });
 
-export const YogaStylesFilterPopupExample = {
-  component: YogaStylesFilterPopup,
+export const CatSpFilterPopupExample = {
+  component: CatSpFilterPopup,
   props: {},
   group: 'filters',
 };
 
-const YogaStylesFilterPlain = withRouter(props => {
+const CatSpFilterPlain = withRouter(props => {
   const { history, location } = props;
 
   const params = parse(location.search);
-  const yogaStyles = params[URL_PARAM];
-  const initialValues = !!yogaStyles ? yogaStyles.split(',') : [];
+  const CatSp = params[URL_PARAM];
+  const initialValues = !!CatSp ? CatSp.split(',') : [];
 
   return (
     <SelectMultipleFilter
       id="SelectMultipleFilterPlainExample"
-      name="yogaStyles"
+      name="CatSp"
       urlParam={URL_PARAM}
-      label="yogaStyles"
+      label="CatSp"
       onSubmit={(urlParam, values) => {
         handleSubmit(urlParam, values, history);
       }}
@@ -73,8 +73,8 @@ const YogaStylesFilterPlain = withRouter(props => {
   );
 });
 
-export const YogaStylesFilterPlainExample = {
-  component: YogaStylesFilterPlain,
+export const CatSpFilterPlainExample = {
+  component: CatSpFilterPlain,
   props: {},
   group: 'filters',
 };

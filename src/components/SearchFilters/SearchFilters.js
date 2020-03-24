@@ -52,7 +52,7 @@ const SearchFiltersComponent = props => {
     resultsCount,
     searchInProgress,
     certificateFilter,
-    yogaStylesFilter,
+    CatSpFilter,
     priceFilter,
     keywordFilter,
     isSearchFiltersPanelOpen,
@@ -69,16 +69,16 @@ const SearchFiltersComponent = props => {
     id: 'SearchFilters.certificateLabel',
   });
 
-  const yogaStylesLabel = intl.formatMessage({
-    id: 'SearchFilters.yogaStylesLabel',
+  const CatSpLabel = intl.formatMessage({
+    id: 'SearchFilters.CatSpLabel',
   });
 
   const keywordLabel = intl.formatMessage({
     id: 'SearchFilters.keywordLabel',
   });
 
-  const initialyogaStyles = yogaStylesFilter
-    ? initialValues(urlQueryParams, yogaStylesFilter.paramName)
+  const initialCatSp = CatSpFilter
+    ? initialValues(urlQueryParams, CatSpFilter.paramName)
     : null;
 
   const initialcertificate = certificateFilter
@@ -142,28 +142,16 @@ const SearchFiltersComponent = props => {
     />
   ) : null;
 
-  const yogaStylesFilterElement = yogaStylesFilter ? (
+  const CatSpFilterElement = CatSpFilter ? (
     <SelectMultipleFilter
-      id={'SearchFilters.yogaStylesFilter'}
-      name="yogaStyles"
-      urlParam={yogaStylesFilter.paramName}
-      label={yogaStylesLabel}
+      id={'SearchFilters.CatSpFilter'}
+      name="CatSp"
+      urlParam={CatSpFilter.paramName}
+      label={CatSpLabel}
       onSubmit={handleSelectOptions}
       showAsPopup
-      options={yogaStylesFilter.options}
-      initialValues={initialyogaStyles}
-      contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
-    />
-  ) : null;
-
-  const priceFilterElement = priceFilter ? (
-    <PriceFilter
-      id="SearchFilters.priceFilter"
-      urlParam={priceFilter.paramName}
-      onSubmit={handlePrice}
-      showAsPopup
-      {...priceFilter.config}
-      initialValues={initialPriceRange}
+      options={CatSpFilter.options}
+      initialValues={initialCatSp}
       contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
     />
   ) : null;
@@ -202,9 +190,8 @@ const SearchFiltersComponent = props => {
   return (
     <div className={classes}>
       <div className={css.filters}>
-        {yogaStylesFilterElement}
+        {CatSpFilterElement}
         {certificateFilterElement}
-        {priceFilterElement}
         {keywordFilterElement}
         {toggleSearchFiltersPanelButton}
       </div>
@@ -238,7 +225,7 @@ SearchFiltersComponent.defaultProps = {
   resultsCount: null,
   searchingInProgress: false,
   certificateFilter: null,
-  yogaStylesFilter: null,
+  CatSpFilter: null,
   priceFilter: null,
   isSearchFiltersPanelOpen: false,
   toggleSearchFiltersPanel: null,
@@ -254,7 +241,7 @@ SearchFiltersComponent.propTypes = {
   searchingInProgress: bool,
   onManageDisableScrolling: func.isRequired,
   certificateFilter: propTypes.filterConfig,
-  yogaStylesFilter: propTypes.filterConfig,
+  CatSpFilter: propTypes.filterConfig,
   priceFilter: propTypes.filterConfig,
   isSearchFiltersPanelOpen: bool,
   toggleSearchFiltersPanel: func,

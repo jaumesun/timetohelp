@@ -10,7 +10,7 @@ const SectionFeaturesMaybe = props => {
     return null;
   }
 
-  const selectedOptions = publicData && publicData.yogaStyles ? publicData.yogaStyles : [];
+  const selectedOptions = publicData && publicData.CatSp ? publicData.CatSp : [];
   const selectedConfigOptions = options.filter(o => selectedOptions.find(s => s === o.key));
 
   return (
@@ -19,7 +19,7 @@ const SectionFeaturesMaybe = props => {
         <FormattedMessage id="ListingPage.featuresTitle" />
       </h2>
       <PropertyGroup
-        id="ListingPage.yogaStyles"
+        id="ListingPage.CatSp"
         options={selectedConfigOptions}
         selectedOptions={selectedOptions}
         twoColumns={selectedConfigOptions > 5}

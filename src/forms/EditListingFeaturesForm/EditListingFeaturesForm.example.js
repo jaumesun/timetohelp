@@ -1,11 +1,11 @@
 import EditListingFeaturesForm from './EditListingFeaturesForm';
 
-const NAME = 'yogaStyles';
+const NAME = 'CatSp';
 
 const initialValueArray = ['hatha', 'vinyasa', 'yin'];
 const initialValues = { [NAME]: initialValueArray };
 
-export const YogaStyles = {
+export const CatSp = {
   component: EditListingFeaturesForm,
   props: {
     name: NAME,

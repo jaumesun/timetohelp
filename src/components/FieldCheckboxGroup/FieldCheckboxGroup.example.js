@@ -24,14 +24,14 @@ const commonProps = {
 };
 
 const optionalProps = {
-  name: 'yogaStyles-optional',
-  id: 'yogaStyles-optional',
+  name: 'CatSp-optional',
+  id: 'CatSp-optional',
   ...commonProps,
 };
 
 const requiredProps = {
-  name: 'yogaStyles-required',
-  id: `${formNameRequired}.yogaStyles-required`,
+  name: 'CatSp-required',
+  id: `${formNameRequired}.CatSp-required`,
   ...commonProps,
   validate: requiredFieldArrayCheckbox('this is required'),
 };
