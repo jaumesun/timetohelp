@@ -198,85 +198,21 @@ class StripePaymentForm extends Component {
   }
 
   componentDidMount() {
-    if (!window.Stripe) {
-      throw new Error('Stripe must be loaded for StripePaymentForm');
-    }
-
-    if (config.stripe.publishableKey) {
-      const {
-        onStripeInitialized,
-        hasHandledCardPayment,
-        defaultPaymentMethod,
-        loadingData,
-      } = this.props;
-      this.stripe = window.Stripe(config.stripe.publishableKey);
-      onStripeInitialized(this.stripe);
-
-      if (!(hasHandledCardPayment || defaultPaymentMethod || loadingData)) {
-        this.initializeStripeElement();
-      }
-    }
   }
 
   componentWillUnmount() {
-    if (this.card) {
-      this.card.removeEventListener('change', this.handleCardValueChange);
-      this.card.unmount();
-      this.card = null;
-    }
   }
 
   initializeStripeElement(element) {
-    const elements = this.stripe.elements(stripeElementsOptions);
-
-    if (!this.card) {
-      this.card = elements.create('card', { style: cardStyles });
-      this.card.mount(element || this.cardContainer);
-      this.card.addEventListener('change', this.handleCardValueChange);
-      // EventListener is the only way to simulate breakpoints with Stripe.
-      window.addEventListener('resize', () => {
-        if (this.card) {
-          if (window.innerWidth < 1024) {
-            this.card.update({ style: { base: { fontSize: '18px', lineHeight: '24px' } } });
-          } else {
-            this.card.update({ style: { base: { fontSize: '20px', lineHeight: '32px' } } });
-          }
-        }
-      });
-    }
   }
 
   changePaymentMethod(changedTo) {
-    if (this.card && changedTo === 'defaultCard') {
-      this.card.removeEventListener('change', this.handleCardValueChange);
-      this.card.unmount();
-      this.card = null;
-    }
-    this.setState({ paymentMethod: changedTo });
   }
 
   handleStripeElementRef(el) {
-    this.cardContainer = el;
-    if (this.stripe && el) {
-      this.initializeStripeElement(el);
-    }
   }
 
   handleCardValueChange(event) {
-    const { intl } = this.props;
-    const { error, complete } = event;
-
-    const postalCode = event.value.postalCode;
-    if (this.finalFormAPI) {
-      this.finalFormAPI.change('postal', postalCode);
-    }
-
-    this.setState(prevState => {
-      return {
-        error: error ? stripeErrorTranslation(intl, error) : null,
-        cardValueValid: complete,
-      };
-    });
   }
   handleSubmit(values) {
     const {
@@ -284,27 +220,12 @@ class StripePaymentForm extends Component {
       inProgress,
       formId,
       hasHandledCardPayment,
-      defaultPaymentMethod,
     } = this.props;
     const { initialMessage } = values;
-    const { cardValueValid, paymentMethod } = this.state;
-    const billingDetailsKnown = hasHandledCardPayment || defaultPaymentMethod;
-    const onetimePaymentNeedsAttention = !billingDetailsKnown && !cardValueValid;
-
-    if (inProgress || onetimePaymentNeedsAttention) {
-      // Already submitting or card value incomplete/invalid
-      return;
-    }
-
     const params = {
       message: initialMessage ? initialMessage.trim() : null,
-      card: this.card,
       formId,
       formValues: values,
-      paymentMethod: getPaymentMethod(
-        paymentMethod,
-        ensurePaymentMethodCard(defaultPaymentMethod).id
-      ),
     };
     onSubmit(params);
   }
@@ -397,65 +318,6 @@ class StripePaymentForm extends Component {
     );
     return hasStripeKey ? (
       <Form className={classes} onSubmit={handleSubmit}>
-        {billingDetailsNeeded && !loadingData ? (
-          <React.Fragment>
-            {showPaymentMethodSelector ? (
-              <PaymentMethodSelector
-                cardClasses={cardClasses}
-                formId={formId}
-                defaultPaymentMethod={ensuredDefaultPaymentMethod}
-                changePaymentMethod={this.changePaymentMethod}
-                handleStripeElementRef={this.handleStripeElementRef}
-                hasCardError={hasCardError}
-                error={this.state.error}
-                paymentMethod={selectedPaymentMethod}
-                intl={intl}
-              />
-            ) : (
-              <React.Fragment>
-                <h3 className={css.paymentHeading}>
-                  <FormattedMessage id="StripePaymentForm.paymentHeading" />
-                </h3>
-                <OneTimePaymentWithCardElement
-                  cardClasses={cardClasses}
-                  formId={formId}
-                  handleStripeElementRef={this.handleStripeElementRef}
-                  hasCardError={hasCardError}
-                  error={this.state.error}
-                  intl={intl}
-                />
-              </React.Fragment>
-            )}
-
-            {showOnetimePaymentFields ? (
-              <div className={css.paymentAddressField}>
-                <h3 className={css.billingHeading}>
-                  <FormattedMessage id="StripePaymentForm.billingDetails" />
-                </h3>
-
-                <FieldTextInput
-                  className={css.field}
-                  type="text"
-                  id="name"
-                  name="name"
-                  autoComplete="cc-name"
-                  label={billingDetailsNameLabel}
-                  placeholder={billingDetailsNamePlaceholder}
-                />
-
-                {billingAddress}
-              </div>
-            ) : null}
-          </React.Fragment>
-        ) : loadingData ? (
-          <p className={css.spinner}>
-            <IconSpinner />
-          </p>
-        ) : null}
-
-        {initiateOrderError ? (
-          <span className={css.errorMessage}>{initiateOrderError.message}</span>
-        ) : null}
         {showInitialMessageInput ? (
           <div>
             <h3 className={css.messageHeading}>

@@ -8,7 +8,7 @@ const { LatLng, LatLngBounds } = sdkTypes;
 // Each item in the array should be an object with a unique `id` (String) and a
 // `predictionPlace` (util.types.place) properties.
 export default [
-  {
+/*  {
     id: 'default-new-york',
     predictionPlace: {
       address: 'New York City, New York, USA',
@@ -58,4 +58,5 @@ export default [
       ),
     },
   },
+*/
 ];

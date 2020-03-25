@@ -20,7 +20,7 @@ import {
   TRANSITION_ENQUIRE,
   TRANSITION_EXPIRE,
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_CONFIRM_PAYMENT,
+  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
 } from '../../util/transaction';
 import BreakdownMaybe from './BreakdownMaybe';
 import { TransactionPanelComponent } from './TransactionPanel';
@@ -254,7 +254,7 @@ describe('TransactionPanel - Order', () => {
 
   const txPreauthorized = createTransaction({
     id: 'order-preauthorized',
-    lastTransition: TRANSITION_CONFIRM_PAYMENT,
+    lastTransition: TRANSITION_REQUEST_PAYMENT,
     ...baseTxAttrs,
   });
 
@@ -294,7 +294,7 @@ describe('TransactionPanel - Order', () => {
       createTxTransition({
         createdAt: new Date(Date.UTC(2017, 4, 1, 0, 0, 1)),
         by: 'customer',
-        transition: TRANSITION_CONFIRM_PAYMENT,
+        transition: TRANSITION_REQUEST_PAYMENT,
       }),
       createTxTransition({
         createdAt: new Date(Date.UTC(2017, 5, 1)),

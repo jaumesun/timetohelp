@@ -11,8 +11,6 @@ import {
   txIsEnquired,
   txIsRequested,
   txHasBeenDelivered,
-  txIsPaymentExpired,
-  txIsPaymentPending,
 } from '../../util/transaction';
 import { propTypes, DATE_TYPE_DATETIME } from '../../util/types';
 import { createSlug, stringify } from '../../util/urlHelpers';
@@ -88,26 +86,6 @@ export const txState = (intl, tx, type) => {
         };
 
     return requested;
-  } else if (txIsPaymentPending(tx)) {
-    return {
-      nameClassName: isOrder ? css.nameNotEmphasized : css.nameEmphasized,
-      bookingClassName: css.bookingNoActionNeeded,
-      lastTransitionedAtClassName: css.lastTransitionedAtNotEmphasized,
-      stateClassName: isOrder ? css.stateActionNeeded : css.stateNoActionNeeded,
-      state: intl.formatMessage({
-        id: 'InboxPage.statePendingPayment',
-      }),
-    };
-  } else if (txIsPaymentExpired(tx)) {
-    return {
-      nameClassName: css.nameNotEmphasized,
-      bookingClassName: css.bookingNoActionNeeded,
-      lastTransitionedAtClassName: css.lastTransitionedAtNotEmphasized,
-      stateClassName: css.stateNoActionNeeded,
-      state: intl.formatMessage({
-        id: 'InboxPage.stateExpired',
-      }),
-    };
   } else if (txIsDeclined(tx)) {
     return {
       nameClassName: css.nameNotEmphasized,

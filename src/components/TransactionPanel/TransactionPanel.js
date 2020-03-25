@@ -8,8 +8,6 @@ import {
   txIsCanceled,
   txIsDeclined,
   txIsEnquired,
-  txIsPaymentExpired,
-  txIsPaymentPending,
   txIsRequested,
   txHasBeenDelivered,
 } from '../../util/transaction';
@@ -221,16 +219,6 @@ export class TransactionPanelComponent extends Component {
         return {
           headingState: HEADING_ENQUIRED,
           showBookingPanel: isCustomer && !isProviderBanned && hasCorrectNextTransition,
-        };
-      } else if (txIsPaymentPending(tx)) {
-        return {
-          headingState: HEADING_PAYMENT_PENDING,
-          showDetailCardHeadings: isCustomer,
-        };
-      } else if (txIsPaymentExpired(tx)) {
-        return {
-          headingState: HEADING_PAYMENT_EXPIRED,
-          showDetailCardHeadings: isCustomer,
         };
       } else if (txIsRequested(tx)) {
         return {

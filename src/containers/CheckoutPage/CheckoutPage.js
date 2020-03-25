@@ -30,7 +30,7 @@ import {
   transactionInitiateOrderStripeErrors,
 } from '../../util/errors';
 import { formatMoney } from '../../util/currency';
-import { TRANSITION_ENQUIRE, txIsPaymentPending, txIsPaymentExpired } from '../../util/transaction';
+import { TRANSITION_ENQUIRE } from '../../util/transaction';
 import {
   AvatarMedium,
   BookingBreakdown,
@@ -86,11 +86,7 @@ const initializeOrderPage = (initialValues, routes, dispatch) => {
 };
 
 const checkIsPaymentExpired = existingTransaction => {
-  return txIsPaymentExpired(existingTransaction)
-    ? true
-    : txIsPaymentPending(existingTransaction)
-    ? minutesBetween(existingTransaction.attributes.lastTransitionedAt, new Date()) >= 15
-    : false;
+  return false;
 };
 
 export class CheckoutPageComponent extends Component {
@@ -104,7 +100,7 @@ export class CheckoutPageComponent extends Component {
     };
     this.stripe = null;
 
-    this.onStripeInitialized = this.onStripeInitialized.bind(this);
+    //this.onStripeInitialized = this.onStripeInitialized.bind(this);
     this.loadInitialData = this.loadInitialData.bind(this);
     this.handlePaymentIntent = this.handlePaymentIntent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -456,34 +452,6 @@ export class CheckoutPageComponent extends Component {
       });
   }
 
-  onStripeInitialized(stripe) {
-    this.stripe = stripe;
-
-    const { paymentIntent, onRetrievePaymentIntent } = this.props;
-    const tx = this.state.pageData ? this.state.pageData.transaction : null;
-
-    // We need to get up to date PI, if booking is created but payment is not expired.
-    const shouldFetchPaymentIntent =
-      this.stripe &&
-      !paymentIntent &&
-      tx &&
-      tx.id &&
-      tx.booking &&
-      tx.booking.id &&
-      txIsPaymentPending(tx) &&
-      !checkIsPaymentExpired(tx);
-
-    if (shouldFetchPaymentIntent) {
-      const { stripePaymentIntentClientSecret } =
-        tx.attributes.protectedData && tx.attributes.protectedData.stripePaymentIntents
-          ? tx.attributes.protectedData.stripePaymentIntents.default
-          : {};
-
-      // Fetch up to date PaymentIntent from Stripe
-      onRetrievePaymentIntent({ stripe, stripePaymentIntentClientSecret });
-    }
-  }
-
   render() {
     const {
       scrollingDisabled,
@@ -723,8 +691,8 @@ export class CheckoutPageComponent extends Component {
       : 'CheckoutPage.perUnit';
 
     const price = currentListing.attributes.price;
-    const formattedPrice = formatMoney(intl, price);
-    const detailsSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
+    // const formattedPrice = formatMoney(intl, price);
+    // const detailsSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
 
     const showInitialMessageInput = !(
       existingTransaction && existingTransaction.attributes.lastTransition === TRANSITION_ENQUIRE
@@ -798,11 +766,6 @@ export class CheckoutPageComponent extends Component {
                   confirmPaymentError={confirmPaymentError}
                   hasHandledCardPayment={hasPaymentIntentUserActionsDone}
                   loadingData={!stripeCustomerFetched}
-                  defaultPaymentMethod={
-                    hasDefaultPaymentMethod ? currentUser.stripeCustomer.defaultPaymentMethod : null
-                  }
-                  paymentIntent={paymentIntent}
-                  onStripeInitialized={this.onStripeInitialized}
                 />
               ) : null}
               {isPaymentExpired ? (
@@ -830,7 +793,7 @@ export class CheckoutPageComponent extends Component {
             </div>
             <div className={css.detailsHeadings}>
               <h2 className={css.detailsTitle}>{listingTitle}</h2>
-              <p className={css.detailsSubtitle}>{detailsSubTitle}</p>
+              <p className={css.detailsSubtitle}></p>
             </div>
             {speculateTransactionErrorMessage}
             {breakdown}

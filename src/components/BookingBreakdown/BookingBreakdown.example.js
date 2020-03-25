@@ -7,7 +7,7 @@ import {
   TRANSITION_DECLINE,
   TRANSITION_EXPIRE,
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_CONFIRM_PAYMENT,
+  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
   TX_TRANSITION_ACTOR_CUSTOMER,
 } from '../../util/transaction';
 import {
@@ -41,7 +41,7 @@ const exampleTransaction = params => {
     attributes: {
       createdAt: created,
       lastTransitionedAt: created,
-      lastTransition: TRANSITION_CONFIRM_PAYMENT,
+      lastTransition: TRANSITION_REQUEST_PAYMENT,
       transitions: [
         {
           createdAt: created,
@@ -51,7 +51,7 @@ const exampleTransaction = params => {
         {
           createdAt: confirmed,
           by: TX_TRANSITION_ACTOR_CUSTOMER,
-          transition: TRANSITION_CONFIRM_PAYMENT,
+          transition: TRANSITION_REQUEST_PAYMENT,
         },
       ],
 
@@ -224,7 +224,7 @@ export const ProviderSalePreauthorized = {
     unitType: LINE_ITEM_NIGHT,
     dateType: DATE_TYPE_DATETIME,
     transaction: exampleTransaction({
-      lastTransition: TRANSITION_CONFIRM_PAYMENT,
+      lastTransition: TRANSITION_REQUEST_PAYMENT,
       payinTotal: new Money(4500, CURRENCY),
       payoutTotal: new Money(2500, CURRENCY),
       lineItems: [

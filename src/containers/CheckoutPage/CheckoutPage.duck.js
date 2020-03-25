@@ -5,7 +5,6 @@ import { storableError } from '../../util/errors';
 import {
   TRANSITION_REQUEST_PAYMENT,
   TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
-  TRANSITION_CONFIRM_PAYMENT,
 } from '../../util/transaction';
 import * as log from '../../util/log';
 import { fetchCurrentUserHasOrdersSuccess, fetchCurrentUser } from '../../ducks/user.duck';
@@ -205,7 +204,7 @@ export const confirmPayment = orderParams => (dispatch, getState, sdk) => {
 
   const bodyParams = {
     id: orderParams.transactionId,
-    transition: TRANSITION_CONFIRM_PAYMENT,
+    transition: TRANSITION_REQUEST_PAYMENT,
     params: {},
   };
 

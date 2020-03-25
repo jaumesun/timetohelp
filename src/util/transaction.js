@@ -23,11 +23,11 @@ export const TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY = 'transition/request-paym
 // Stripe SDK might need to ask 3D security from customer, in a separate front-end step.
 // Therefore we need to make another transition to Marketplace API,
 // to tell that the payment is confirmed.
-export const TRANSITION_CONFIRM_PAYMENT = 'transition/confirm-payment';
+// export const TRANSITION_CONFIRM_PAYMENT = 'transition/confirm-payment';
 
 // If the payment is not confirmed in the time limit set in transaction process (by default 15min)
 // the transaction will expire automatically.
-export const TRANSITION_EXPIRE_PAYMENT = 'transition/expire-payment';
+// export const TRANSITION_EXPIRE_PAYMENT = 'transition/expire-payment';
 
 // When the provider accepts or declines a transaction from the
 // SalePage, it is transitioned with the accept or decline transition.
@@ -84,8 +84,8 @@ export const TX_TRANSITION_ACTORS = [
  */
 const STATE_INITIAL = 'initial';
 const STATE_ENQUIRY = 'enquiry';
-const STATE_PENDING_PAYMENT = 'pending-payment';
-const STATE_PAYMENT_EXPIRED = 'payment-expired';
+//const STATE_PENDING_PAYMENT = 'pending-payment';
+//const STATE_PAYMENT_EXPIRED = 'payment-expired';
 const STATE_PREAUTHORIZED = 'preauthorized';
 const STATE_DECLINED = 'declined';
 const STATE_ACCEPTED = 'accepted';
@@ -118,23 +118,16 @@ const stateDescription = {
     [STATE_INITIAL]: {
       on: {
         [TRANSITION_ENQUIRE]: STATE_ENQUIRY,
-        [TRANSITION_REQUEST_PAYMENT]: STATE_PENDING_PAYMENT,
+        [TRANSITION_REQUEST_PAYMENT]: STATE_PREAUTHORIZED,
       },
     },
+
     [STATE_ENQUIRY]: {
       on: {
-        [TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY]: STATE_PENDING_PAYMENT,
+        [TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY]: STATE_PREAUTHORIZED,
       },
     },
 
-    [STATE_PENDING_PAYMENT]: {
-      on: {
-        [TRANSITION_EXPIRE_PAYMENT]: STATE_PAYMENT_EXPIRED,
-        [TRANSITION_CONFIRM_PAYMENT]: STATE_PREAUTHORIZED,
-      },
-    },
-
-    [STATE_PAYMENT_EXPIRED]: {},
     [STATE_PREAUTHORIZED]: {
       on: {
         [TRANSITION_DECLINE]: STATE_DECLINED,
@@ -223,12 +216,6 @@ const txLastTransition = tx => ensureTransaction(tx).attributes.lastTransition;
 export const txIsEnquired = tx =>
   getTransitionsToState(STATE_ENQUIRY).includes(txLastTransition(tx));
 
-export const txIsPaymentPending = tx =>
-  getTransitionsToState(STATE_PENDING_PAYMENT).includes(txLastTransition(tx));
-
-export const txIsPaymentExpired = tx =>
-  getTransitionsToState(STATE_PAYMENT_EXPIRED).includes(txLastTransition(tx));
-
 // Note: state name used in Marketplace API docs (and here) is actually preauthorized
 // However, word "requested" is used in many places so that we decided to keep it.
 export const txIsRequested = tx =>
@@ -301,9 +288,10 @@ export const isRelevantPastTransition = transition => {
     TRANSITION_ACCEPT,
     TRANSITION_CANCEL,
     TRANSITION_COMPLETE,
-    TRANSITION_CONFIRM_PAYMENT,
     TRANSITION_DECLINE,
     TRANSITION_EXPIRE,
+    TRANSITION_REQUEST_PAYMENT,
+    TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
     TRANSITION_REVIEW_1_BY_CUSTOMER,
     TRANSITION_REVIEW_1_BY_PROVIDER,
     TRANSITION_REVIEW_2_BY_CUSTOMER,
