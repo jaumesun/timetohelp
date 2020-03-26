@@ -48,7 +48,7 @@ const AboutPage = () => {
               </h2>
 
               <p>
-                Aiming to create a directory of people who can help others remotely for free during the covid-19 pandemic, we have implemented the project using the <a href="http://sharetribe.com" target="_blank">Sharetribe Flex</a> marketplaces technology as well as the free opensource videocoferencing system <a href="http://meet.jit.si" target="_blank">Jitsi</a>.
+                Aiming to quickly set up a directory of people who can help others remotely for free during the covid-19 pandemic, this project has been implemented using <a href="http://sharetribe.com" target="_blank">Sharetribe Flex</a> and <a href="http://meet.jit.si" target="_blank">Jitsi</a>.<br/><br/> The site does not review or verify the information provided by users, so please use it at your own discretion and risk.
               </p>
 
               <h3 className={css.subtitle}>Want to be on the directory to help others via videoconference? </h3>
