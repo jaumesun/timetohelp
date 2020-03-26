@@ -1,0 +1,1 @@
+Link for the videoconference session with {{transaction.customer.display-name}}.

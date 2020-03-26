@@ -5,7 +5,6 @@ import { nightsBetween } from '../util/dates';
 import {
   TRANSITION_ACCEPT,
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,  
   TX_TRANSITION_ACTOR_CUSTOMER,
   TX_TRANSITION_ACTOR_PROVIDER,
 } from '../util/transaction';

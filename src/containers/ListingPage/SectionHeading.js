@@ -25,14 +25,6 @@ const SectionHeading = props => {
         <h1 className={css.title}>{richTitle}</h1>
         <div className={css.author}>
           {showCertificate ? <span>{certificate.label}</span> : null}
-          {showContactUser ? (
-            <span className={css.contactWrapper}>
-              {showCertificate ? <span className={css.separator}>•</span> : null}
-              <InlineTextButton rootClassName={css.contactLink} onClick={onContactUser}>
-                <FormattedMessage id="ListingPage.contactUser" />
-              </InlineTextButton>
-            </span>
-          ) : null}
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import { storableError } from '../../util/errors';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { denormalisedResponseEntities } from '../../util/data';
 import { findNextBoundary, nextMonthFn, monthIdStringInTimeZone } from '../../util/dates';
-import { TRANSITION_ENQUIRE } from '../../util/transaction';
 import {
   LISTING_PAGE_DRAFT_VARIANT,
   LISTING_PAGE_PENDING_APPROVAL_VARIANT,
@@ -29,10 +28,6 @@ export const FETCH_TIME_SLOTS_REQUEST = 'app/ListingPage/FETCH_TIME_SLOTS_REQUES
 export const FETCH_TIME_SLOTS_SUCCESS = 'app/ListingPage/FETCH_TIME_SLOTS_SUCCESS';
 export const FETCH_TIME_SLOTS_ERROR = 'app/ListingPage/FETCH_TIME_SLOTS_ERROR';
 
-export const SEND_ENQUIRY_REQUEST = 'app/ListingPage/SEND_ENQUIRY_REQUEST';
-export const SEND_ENQUIRY_SUCCESS = 'app/ListingPage/SEND_ENQUIRY_SUCCESS';
-export const SEND_ENQUIRY_ERROR = 'app/ListingPage/SEND_ENQUIRY_ERROR';
-
 // ================ Reducer ================ //
 
 const initialState = {
@@ -47,9 +42,6 @@ const initialState = {
     //   fetchTimeSlotsInProgress: null,
     // },
   },
-  sendEnquiryInProgress: false,
-  sendEnquiryError: null,
-  enquiryModalOpenForListingId: null,
 };
 
 const listingPageReducer = (state = initialState, action = {}) => {
@@ -106,13 +98,6 @@ const listingPageReducer = (state = initialState, action = {}) => {
       return { ...state, monthlyTimeSlots };
     }
 
-    case SEND_ENQUIRY_REQUEST:
-      return { ...state, sendEnquiryInProgress: true, sendEnquiryError: null };
-    case SEND_ENQUIRY_SUCCESS:
-      return { ...state, sendEnquiryInProgress: false };
-    case SEND_ENQUIRY_ERROR:
-      return { ...state, sendEnquiryInProgress: false, sendEnquiryError: payload };
-
     default:
       return state;
   }
@@ -160,9 +145,6 @@ export const fetchTimeSlotsError = (monthId, error) => ({
   payload: { monthId, error },
 });
 
-export const sendEnquiryRequest = () => ({ type: SEND_ENQUIRY_REQUEST });
-export const sendEnquirySuccess = () => ({ type: SEND_ENQUIRY_SUCCESS });
-export const sendEnquiryError = e => ({ type: SEND_ENQUIRY_ERROR, error: true, payload: e });
 
 // ================ Thunks ================ //
 
@@ -248,31 +230,6 @@ export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, ge
     })
     .catch(e => {
       dispatch(fetchTimeSlotsError(monthId, storableError(e)));
-    });
-};
-
-export const sendEnquiry = (listingId, message) => (dispatch, getState, sdk) => {
-  dispatch(sendEnquiryRequest());
-  const bodyParams = {
-    transition: TRANSITION_ENQUIRE,
-    processAlias: config.bookingProcessAlias,
-    params: { listingId },
-  };
-  return sdk.transactions
-    .initiate(bodyParams)
-    .then(response => {
-      const transactionId = response.data.data.id;
-
-      // Send the message to the created transaction
-      return sdk.messages.send({ transactionId, content: message }).then(() => {
-        dispatch(sendEnquirySuccess());
-        dispatch(fetchCurrentUserHasOrdersSuccess(true));
-        return transactionId;
-      });
-    })
-    .catch(e => {
-      dispatch(sendEnquiryError(storableError(e)));
-      throw e;
     });
 };
 

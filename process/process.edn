@@ -1,21 +1,10 @@
 {:format :v3,
  :transitions
- [{:name :transition/enquire,
-   :actor :actor.role/customer,
-   :actions [],
-   :to :state/enquiry}
-  {:name :transition/request-payment,
+ [{:name :transition/request-payment,
    :actor :actor.role/customer,
    :actions
    [{:name :action/create-booking,
      :config {:observe-availability? true, :type :time}}],
-   :to :state/preauthorized}
-  {:name :transition/request-payment-after-enquiry,
-   :actor :actor.role/customer,
-   :actions
-   [{:name :action/create-booking,
-     :config {:observe-availability? true, :type :time}}],
-   :from :state/enquiry,
    :to :state/preauthorized}
   {:name :transition/accept,
    :actor :actor.role/provider,
@@ -98,14 +87,10 @@
    :from :state/reviewed-by-provider,
    :to :state/reviewed}],
  :notifications                                     
- [{:name :notification/new-booking-request1,
+ [{:name :notification/new-booking-request,
    :on :transition/request-payment,                 
    :to :actor.role/provider,
-   :template :new-booking-request}
-		{:name :notification/new-booking-request2,
-   :on :transition/request-payment-after-enquiry,                 
-   :to :actor.role/provider,
-   :template :new-booking-request}   
+   :template :new-booking-request}  
   {:name :notification/booking-request-accepted,
    :on :transition/accept,
    :to :actor.role/customer,

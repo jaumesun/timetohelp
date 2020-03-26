@@ -17,10 +17,8 @@ import {
   TRANSITION_CANCELED,
   TRANSITION_COMPLETE,
   TRANSITION_DECLINE,
-  TRANSITION_ENQUIRE,
   TRANSITION_EXPIRE,
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
 } from '../../util/transaction';
 import BreakdownMaybe from './BreakdownMaybe';
 import { TransactionPanelComponent } from './TransactionPanel';
@@ -49,12 +47,6 @@ describe('TransactionPanel - Sale', () => {
     provider: createUser(providerId),
     lastTransitionedAt: new Date(Date.UTC(2017, 5, 10)),
   };
-
-  const txEnquired = createTransaction({
-    id: 'sale-enquired',
-    lastTransition: TRANSITION_ENQUIRE,
-    ...baseTxAttrs,
-  });
 
   const txPreauthorized = createTransaction({
     id: 'sale-preauthorized',
@@ -137,14 +129,6 @@ describe('TransactionPanel - Sale', () => {
     intl: fakeIntl,
   };
 
-  it('enquired matches snapshot', () => {
-    const props = {
-      ...panelBaseProps,
-      transaction: txEnquired,
-    };
-    const tree = renderShallow(<TransactionPanelComponent {...props} />);
-    expect(tree).toMatchSnapshot();
-  });
   it('preauthorized matches snapshot', () => {
     const props = {
       ...panelBaseProps,
@@ -246,12 +230,6 @@ describe('TransactionPanel - Order', () => {
     customer: createUser(customerId),
   };
 
-  const txEnquired = createTransaction({
-    id: 'order-enquired',
-    lastTransition: TRANSITION_ENQUIRE,
-    ...baseTxAttrs,
-  });
-
   const txPreauthorized = createTransaction({
     id: 'order-preauthorized',
     lastTransition: TRANSITION_REQUEST_PAYMENT,
@@ -338,15 +316,6 @@ describe('TransactionPanel - Order', () => {
     onFetchTimeSlots: noop,
   };
 
-  it('enquired matches snapshot', () => {
-    const props = {
-      ...panelBaseProps,
-      transaction: txEnquired,
-    };
-
-    const tree = renderShallow(<TransactionPanelComponent {...props} />);
-    expect(tree).toMatchSnapshot();
-  });
   it('preauthorized matches snapshot', () => {
     const props = {
       ...panelBaseProps,

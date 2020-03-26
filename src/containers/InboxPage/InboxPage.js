@@ -8,7 +8,6 @@ import {
   txIsAccepted,
   txIsCanceled,
   txIsDeclined,
-  txIsEnquired,
   txIsRequested,
   txHasBeenDelivered,
 } from '../../util/transaction';
@@ -54,17 +53,7 @@ const formatDate = (intl, date) => {
 export const txState = (intl, tx, type) => {
   const isOrder = type === 'order';
 
-  if (txIsEnquired(tx)) {
-    return {
-      nameClassName: isOrder ? css.nameNotEmphasized : css.nameEmphasized,
-      bookingClassName: css.bookingActionNeeded,
-      lastTransitionedAtClassName: css.lastTransitionedAtEmphasized,
-      stateClassName: css.stateActionNeeded,
-      state: intl.formatMessage({
-        id: 'InboxPage.stateEnquiry',
-      }),
-    };
-  } else if (txIsRequested(tx)) {
+  if (txIsRequested(tx)) {
     const requested = isOrder
       ? {
           nameClassName: css.nameNotEmphasized,
@@ -135,11 +124,7 @@ export const txState = (intl, tx, type) => {
 // Functional component as internal helper to print BookingTimeInfo if that is needed
 const BookingInfoMaybe = props => {
   const { bookingClassName, isOrder, intl, tx, unitType } = props;
-  const isEnquiry = txIsEnquired(tx);
 
-  if (isEnquiry) {
-    return null;
-  }
   const listingAttributes = ensureListing(tx.listing).attributes;
   const timeZone = listingAttributes.availabilityPlan
     ? listingAttributes.availabilityPlan.timezone

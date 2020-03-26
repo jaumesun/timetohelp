@@ -13,7 +13,6 @@ import {
   TRANSITION_DECLINE,
   TRANSITION_EXPIRE,
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
   TRANSITION_REVIEW_1_BY_CUSTOMER,
   TRANSITION_REVIEW_1_BY_PROVIDER,
   TRANSITION_REVIEW_2_BY_CUSTOMER,
@@ -116,15 +115,6 @@ const resolveTransitionMessage = (
 
   switch (currentTransition) {
     case TRANSITION_REQUEST_PAYMENT:
-      return isOwnTransition ? (
-        <FormattedMessage id="ActivityFeed.ownTransitionRequest" values={{ listingTitle }} />
-      ) : (
-        <FormattedMessage
-          id="ActivityFeed.transitionRequest"
-          values={{ displayName, listingTitle }}
-        />
-      );
-    case TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY:
       return isOwnTransition ? (
         <FormattedMessage id="ActivityFeed.ownTransitionRequest" values={{ listingTitle }} />
       ) : (

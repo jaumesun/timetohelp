@@ -17,8 +17,8 @@ export const TRANSITION_REQUEST_PAYMENT = 'transition/request-payment';
 
 // A customer can also initiate a transaction with an enquiry, and
 // then transition that with a request.
-export const TRANSITION_ENQUIRE = 'transition/enquire';
-export const TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY = 'transition/request-payment-after-enquiry';
+// export const TRANSITION_ENQUIRE = 'transition/enquire';
+// export const TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY = 'transition/request-payment-after-enquiry';
 
 // Stripe SDK might need to ask 3D security from customer, in a separate front-end step.
 // Therefore we need to make another transition to Marketplace API,
@@ -83,7 +83,7 @@ export const TX_TRANSITION_ACTORS = [
  *       in Marketplace API. Only last transitions are passed along transaction object.
  */
 const STATE_INITIAL = 'initial';
-const STATE_ENQUIRY = 'enquiry';
+//const STATE_ENQUIRY = 'enquiry';
 //const STATE_PENDING_PAYMENT = 'pending-payment';
 //const STATE_PAYMENT_EXPIRED = 'payment-expired';
 const STATE_PREAUTHORIZED = 'preauthorized';
@@ -108,7 +108,7 @@ const stateDescription = {
   // id is defined only to support Xstate format.
   // However if you have multiple transaction processes defined,
   // it is best to keep them in sync with transaction process aliases.
-  id: 'preauth-nightly-booking/release-1',
+  id: 'preauth-unit-time-booking/release-1',
 
   // This 'initial' state is a starting point for new transaction
   initial: STATE_INITIAL,
@@ -117,14 +117,7 @@ const stateDescription = {
   states: {
     [STATE_INITIAL]: {
       on: {
-        [TRANSITION_ENQUIRE]: STATE_ENQUIRY,
         [TRANSITION_REQUEST_PAYMENT]: STATE_PREAUTHORIZED,
-      },
-    },
-
-    [STATE_ENQUIRY]: {
-      on: {
-        [TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY]: STATE_PREAUTHORIZED,
       },
     },
 
@@ -213,8 +206,6 @@ export const transitionsToRequested = getTransitionsToState(STATE_PREAUTHORIZED)
 
 const txLastTransition = tx => ensureTransaction(tx).attributes.lastTransition;
 
-export const txIsEnquired = tx =>
-  getTransitionsToState(STATE_ENQUIRY).includes(txLastTransition(tx));
 
 // Note: state name used in Marketplace API docs (and here) is actually preauthorized
 // However, word "requested" is used in many places so that we decided to keep it.
@@ -291,7 +282,6 @@ export const isRelevantPastTransition = transition => {
     TRANSITION_DECLINE,
     TRANSITION_EXPIRE,
     TRANSITION_REQUEST_PAYMENT,
-    TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
     TRANSITION_REVIEW_1_BY_CUSTOMER,
     TRANSITION_REVIEW_1_BY_PROVIDER,
     TRANSITION_REVIEW_2_BY_CUSTOMER,

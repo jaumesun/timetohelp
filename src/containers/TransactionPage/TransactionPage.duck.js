@@ -5,7 +5,6 @@ import config from '../../config';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { isTransactionsTransitionInvalidTransition, storableError } from '../../util/errors';
 import {
-  txIsEnquired,
   getReview1Transition,
   getReview2Transition,
   txIsInFirstReviewBy,
@@ -378,15 +377,6 @@ export const fetchTransaction = (id, txRole) => (dispatch, getState, sdk) => {
       const transaction = denormalised[1];
 
       // Fetch time slots for transactions that are in enquired state
-      const canFetchTimeslots =
-        txRole === 'customer' &&
-        config.enableAvailability &&
-        transaction &&
-        txIsEnquired(transaction);
-
-      if (canFetchTimeslots) {
-        fetchMonthlyTimeSlots(dispatch, listing);
-      }
 
       const canFetchListing = listing && listing.attributes && !listing.attributes.deleted;
       if (canFetchListing) {

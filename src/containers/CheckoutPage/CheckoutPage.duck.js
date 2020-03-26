@@ -4,7 +4,6 @@ import { denormalisedResponseEntities } from '../../util/data';
 import { storableError } from '../../util/errors';
 import {
   TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
 } from '../../util/transaction';
 import * as log from '../../util/log';
 import { fetchCurrentUserHasOrdersSuccess, fetchCurrentUser } from '../../ducks/user.duck';
@@ -160,23 +159,17 @@ export const stripeCustomerError = e => ({
 
 export const initiateOrder = (orderParams, transactionId) => (dispatch, getState, sdk) => {
   dispatch(initiateOrderRequest());
-  const bodyParams = transactionId
-    ? {
-        id: transactionId,
-        transition: TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
-        params: orderParams,
-      }
-    : {
+  const bodyParams = {
         processAlias: config.bookingProcessAlias,
         transition: TRANSITION_REQUEST_PAYMENT,
         params: orderParams,
-      };
+  };
   const queryParams = {
     include: ['booking', 'provider'],
     expand: true,
   };
 
-  const createOrder = transactionId ? sdk.transactions.transition : sdk.transactions.initiate;
+  const createOrder = sdk.transactions.initiate;
 
   return createOrder(bodyParams, queryParams)
     .then(response => {

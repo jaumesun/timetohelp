@@ -6,7 +6,6 @@ import { NamedLink } from '../../components';
 
 import css from './TransactionPanel.css';
 
-export const HEADING_ENQUIRED = 'enquired';
 export const HEADING_PAYMENT_PENDING = 'pending-payment';
 export const HEADING_PAYMENT_EXPIRED = 'payment-expired';
 export const HEADING_REQUESTED = 'requested';
@@ -112,22 +111,6 @@ const PanelHeading = props => {
   const listingLink = createListingLink(listingId, listingTitle, listingDeleted);
 
   switch (panelHeadingState) {
-    case HEADING_ENQUIRED:
-      return isCustomer ? (
-        <HeadingCustomer
-          className={titleClasses}
-          id="TransactionPanel.orderEnquiredTitle"
-          values={{ listingLink }}
-          listingDeleted={listingDeleted}
-        />
-      ) : (
-        <HeadingProvider
-          className={titleClasses}
-          id="TransactionPanel.saleEnquiredTitle"
-          values={{ customerName, listingLink }}
-          isCustomerBanned={isCustomerBanned}
-        />
-      );
     case HEADING_PAYMENT_PENDING:
       return isCustomer ? (
         <HeadingCustomer

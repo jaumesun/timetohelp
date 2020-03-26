@@ -44,7 +44,7 @@ import {
 import { EnquiryForm } from '../../forms';
 import { TopbarContainer, NotFoundPage } from '../../containers';
 
-import { sendEnquiry, loadData, setInitialValues, fetchTimeSlots } from './ListingPage.duck';
+import { loadData, setInitialValues, fetchTimeSlots } from './ListingPage.duck';
 import SectionImages from './SectionImages';
 import SectionAvatar from './SectionAvatar';
 import SectionHeading from './SectionHeading';
@@ -136,40 +136,9 @@ export class ListingPageComponent extends Component {
   }
 
   onContactUser() {
-    const { currentUser, history, callSetInitialValues, params, location } = this.props;
-
-    if (!currentUser) {
-      const state = { from: `${location.pathname}${location.search}${location.hash}` };
-
-      // We need to log in before showing the modal, but first we need to ensure
-      // that modal does open when user is redirected back to this listingpage
-      callSetInitialValues(setInitialValues, { enquiryModalOpenForListingId: params.id });
-
-      // signup and return back to listingPage.
-      history.push(createResourceLocatorString('SignupPage', routeConfiguration(), {}, {}), state);
-    } else {
-      this.setState({ enquiryModalOpen: true });
-    }
   }
 
   onSubmitEnquiry(values) {
-    const { history, params, onSendEnquiry } = this.props;
-    const routes = routeConfiguration();
-    const listingId = new UUID(params.id);
-    const { message } = values;
-
-    onSendEnquiry(listingId, message.trim())
-      .then(txId => {
-        this.setState({ enquiryModalOpen: false });
-
-        // Redirect to OrderDetailsPage
-        history.push(
-          createResourceLocatorString('OrderDetailsPage', routes, { id: txId.uuid }, {})
-        );
-      })
-      .catch(() => {
-        // Ignore, error handling in duck file
-      });
   }
 
   render() {
@@ -443,23 +412,6 @@ export class ListingPageComponent extends Component {
                 />
               </div>
             </div>
-            <Modal
-              id="ListingPage.enquiry"
-              contentClassName={css.enquiryModalContent}
-              isOpen={isAuthenticated && this.state.enquiryModalOpen}
-              onClose={() => this.setState({ enquiryModalOpen: false })}
-              onManageDisableScrolling={onManageDisableScrolling}
-            >
-              <EnquiryForm
-                className={css.enquiryForm}
-                submitButtonWrapperClassName={css.enquirySubmitButtonWrapper}
-                listingTitle={title}
-                authorDisplayName={authorDisplayName}
-                sendEnquiryError={sendEnquiryError}
-                onSubmit={this.onSubmitEnquiry}
-                inProgress={sendEnquiryInProgress}
-              />
-            </Modal>
           </LayoutWrapperMain>
           <LayoutWrapperFooter>
             <Footer />
@@ -576,7 +528,7 @@ const mapDispatchToProps = dispatch => ({
   onManageDisableScrolling: (componentId, disableScrolling) =>
     dispatch(manageDisableScrolling(componentId, disableScrolling)),
   callSetInitialValues: (setInitialValues, values) => dispatch(setInitialValues(values)),
-  onSendEnquiry: (listingId, message) => dispatch(sendEnquiry(listingId, message)),
+  onSendEnquiry: (listingId, message) => dispatch(),
   onInitializeCardPaymentData: () => dispatch(initializeCardPaymentData()),
   onFetchTimeSlots: (listingId, start, end, timeZone) =>
     dispatch(fetchTimeSlots(listingId, start, end, timeZone)),

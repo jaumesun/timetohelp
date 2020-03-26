@@ -30,7 +30,6 @@ import {
   transactionInitiateOrderStripeErrors,
 } from '../../util/errors';
 import { formatMoney } from '../../util/currency';
-import { TRANSITION_ENQUIRE } from '../../util/transaction';
 import {
   AvatarMedium,
   BookingBreakdown,
@@ -245,94 +244,17 @@ export class CheckoutPageComponent extends Component {
     };
 
     // Step 2: pay using Stripe SDK
-    const fnHandleCardPayment = fnParams => {
-      // fnParams should be returned transaction entity
 
-      const order = ensureTransaction(fnParams);
-      if (order.id) {
-        // Store order.
-        const { bookingData, bookingDates, listing } = pageData;
-        storeData(bookingData, bookingDates, listing, order, STORAGE_KEY);
-        this.setState({ pageData: { ...pageData, transaction: order } });
-      }
-
-      const hasPaymentIntents =
-        order.attributes.protectedData && order.attributes.protectedData.stripePaymentIntents;
-
-      if (!hasPaymentIntents) {
-        throw new Error(
-          `Missing StripePaymentIntents key in transaction's protectedData. Check that your transaction process is configured to use payment intents.`
-        );
-      }
-
-      const { stripePaymentIntentClientSecret } = hasPaymentIntents
-        ? order.attributes.protectedData.stripePaymentIntents.default
-        : null;
-
-      const { stripe, card, billingDetails, paymentIntent } = handlePaymentParams;
-      const stripeElementMaybe = selectedPaymentFlow !== USE_SAVED_CARD ? { card } : {};
-
-      // Note: payment_method could be set here for USE_SAVED_CARD flow.
-      // { payment_method: stripePaymentMethodId }
-      // However, we have set it already on API side, when PaymentIntent was created.
-      const paymentParams =
-        selectedPaymentFlow !== USE_SAVED_CARD
-          ? {
-              payment_method_data: {
-                billing_details: billingDetails,
-              },
-            }
-          : {};
-
-      const params = {
-        stripePaymentIntentClientSecret,
-        orderId: order.id,
-        stripe,
-        ...stripeElementMaybe,
-        paymentParams,
-      };
-
-      // If paymentIntent status is not waiting user action,
-      // handleCardPayment has been called previously.
-      const hasPaymentIntentUserActionsDone =
-        paymentIntent && STRIPE_PI_USER_ACTIONS_DONE_STATUSES.includes(paymentIntent.status);
-      return hasPaymentIntentUserActionsDone
-        ? Promise.resolve({ transactionId: order.id, paymentIntent })
-        : onHandleCardPayment(params);
-    };
 
     // Step 3: complete order by confirming payment to Marketplace API
     // Parameter should contain { paymentIntent, transactionId } returned in step 2
-    const fnConfirmPayment = fnParams => {
-      createdPaymentIntent = fnParams.paymentIntent;
-      return onConfirmPayment(fnParams);
-    };
-
+  
     // Step 4: send initial message
     const fnSendMessage = fnParams => {
       return onSendMessage({ ...fnParams, message });
     };
 
     // Step 5: optionally save card as defaultPaymentMethod
-    const fnSavePaymentMethod = fnParams => {
-      const pi = createdPaymentIntent || paymentIntent;
-
-      if (selectedPaymentFlow === PAY_AND_SAVE_FOR_LATER_USE) {
-        return onSavePaymentMethod(ensuredStripeCustomer, pi.payment_method)
-          .then(response => {
-            if (response.errors) {
-              return { ...fnParams, paymentMethodSaved: false };
-            }
-            return { ...fnParams, paymentMethodSaved: true };
-          })
-          .catch(e => {
-            // Real error cases are catched already in paymentMethods page.
-            return { ...fnParams, paymentMethodSaved: false };
-          });
-      } else {
-        return Promise.resolve({ ...fnParams, paymentMethodSaved: true });
-      }
-    };
 
     // Here we create promise calls in sequence
     // This is pretty much the same as:
@@ -342,9 +264,9 @@ export class CheckoutPageComponent extends Component {
     const applyAsync = (acc, val) => acc.then(val);
     const composeAsync = (...funcs) => x => funcs.reduce(applyAsync, Promise.resolve(x));
     const handlePaymentIntentCreation = composeAsync(
-    //  fnRequestPayment,
+      fnRequestPayment,
     //  fnHandleCardPayment,
-      fnConfirmPayment,
+    //  fnConfirmPayment,
       fnSendMessage,
     //  fnSavePaymentMethod
     );
@@ -361,7 +283,7 @@ export class CheckoutPageComponent extends Component {
       selectedPaymentFlow === USE_SAVED_CARD && hasDefaultPaymentMethod
         ? { paymentMethod: stripePaymentMethodId }
         : selectedPaymentFlow === PAY_AND_SAVE_FOR_LATER_USE
-        ? { setupPaymentMethodForSaving: true }
+        ? { setupPaymentMethodForSaving: false }
         : {};
 
     const orderParams = {
@@ -420,9 +342,6 @@ export class CheckoutPageComponent extends Component {
     const requestPaymentParams = {
       pageData: this.state.pageData,
       speculatedTransaction,
-      stripe: this.stripe,
-      card,
-      billingDetails,
       message,
       paymentIntent,
       selectedPaymentMethod: paymentMethod,
@@ -626,18 +545,6 @@ export class CheckoutPageComponent extends Component {
           <FormattedMessage id="CheckoutPage.chargeDisabledMessage" />
         </p>
       );
-    } else if (stripeErrors && stripeErrors.length > 0) {
-      // NOTE: Error messages from Stripes are not part of translations.
-      // By default they are in English.
-      const stripeErrorsAsString = stripeErrors.join(', ');
-      initiateOrderErrorMessage = (
-        <p className={css.orderError}>
-          <FormattedMessage
-            id="CheckoutPage.initiateOrderStripeError"
-            values={{ stripeErrors: stripeErrorsAsString }}
-          />
-        </p>
-      );
     } else if (initiateOrderError) {
       // Generic initiate order error
       initiateOrderErrorMessage = (
@@ -653,7 +560,6 @@ export class CheckoutPageComponent extends Component {
       </p>
     ) : null;
     let speculateErrorMessage = null;
-
     if (isTransactionInitiateMissingStripeAccountError(speculateTransactionError)) {
       speculateErrorMessage = (
         <p className={css.orderError}>
@@ -694,9 +600,7 @@ export class CheckoutPageComponent extends Component {
     // const formattedPrice = formatMoney(intl, price);
     // const detailsSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
 
-    const showInitialMessageInput = !(
-      existingTransaction && existingTransaction.attributes.lastTransition === TRANSITION_ENQUIRE
-    );
+    const showInitialMessageInput = true;
 
     // Get first and last name of the current user and use it in the StripePaymentForm to autofill the name field
     const userName =

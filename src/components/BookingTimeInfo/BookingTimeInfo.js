@@ -1,6 +1,5 @@
 import React from 'react';
 import { string } from 'prop-types';
-import { txIsEnquired } from '../../util/transaction';
 import { propTypes } from '../../util/types';
 
 import { TimeRange } from '../../components';
@@ -18,11 +17,6 @@ const bookingData = tx => {
 
 const BookingTimeInfo = props => {
   const { bookingClassName, tx, dateType, timeZone } = props;
-  const isEnquiry = txIsEnquired(tx);
-
-  if (isEnquiry) {
-    return null;
-  }
 
   const { bookingStart, bookingEnd } = bookingData(tx);
 

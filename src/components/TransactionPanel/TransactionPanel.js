@@ -3,11 +3,9 @@ import { array, arrayOf, bool, func, number, object, string } from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
 import {
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
   txIsAccepted,
   txIsCanceled,
   txIsDeclined,
-  txIsEnquired,
   txIsRequested,
   txHasBeenDelivered,
 } from '../../util/transaction';
@@ -38,7 +36,6 @@ import DetailCardImage from './DetailCardImage';
 import FeedSection from './FeedSection';
 import SaleActionButtonsMaybe from './SaleActionButtonsMaybe';
 import PanelHeading, {
-  HEADING_ENQUIRED,
   HEADING_PAYMENT_PENDING,
   HEADING_PAYMENT_EXPIRED,
   HEADING_REQUESTED,
@@ -208,19 +205,7 @@ export class TransactionPanelComponent extends Component {
     const isProviderDeleted = isProviderLoaded && currentProvider.attributes.deleted;
 
     const stateDataFn = tx => {
-      if (txIsEnquired(tx)) {
-        const transitions = Array.isArray(nextTransitions)
-          ? nextTransitions.map(transition => {
-              return transition.attributes.name;
-            })
-          : [];
-        const hasCorrectNextTransition =
-          transitions.length > 0 && transitions.includes(TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY);
-        return {
-          headingState: HEADING_ENQUIRED,
-          showBookingPanel: isCustomer && !isProviderBanned && hasCorrectNextTransition,
-        };
-      } else if (txIsRequested(tx)) {
+      if (txIsRequested(tx)) {
         return {
           headingState: HEADING_REQUESTED,
           showDetailCardHeadings: isCustomer,
@@ -362,14 +347,6 @@ export class TransactionPanelComponent extends Component {
               <BreakdownMaybe transaction={currentTransaction} transactionRole={transactionRole} />
             </div>
 
-            {savePaymentMethodFailed ? (
-              <p className={css.genericError}>
-                <FormattedMessage
-                  id="TransactionPanel.savePaymentMethodFailed"
-                  values={{ paymentMethodsPageLink }}
-                />
-              </p>
-            ) : null}
             <FeedSection
               rootClassName={css.feedContainer}
               currentTransaction={currentTransaction}
