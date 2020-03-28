@@ -16,7 +16,7 @@ const i18n = {
     ...
     6: Saturday
   */
-  firstDayOfWeek: 0,
+  firstDayOfWeek: 1,
 };
 
 // Should search results be ordered by distance to origin.
@@ -50,7 +50,7 @@ const enableAvailability = process.env.REACT_APP_AVAILABILITY_ENABLED === 'true'
 // This is limited due to Stripe holding funds up to 90 days from the
 // moment they are charged. Also note that available time slots can only
 // be fetched for 180 days in the future.
-const dayCountAvailableForBooking = 30;
+const dayCountAvailableForBooking = 90;
 
 // To pass environment variables to the client app in the build
 // script, react-scripts (and the sharetribe-scripts fork of
