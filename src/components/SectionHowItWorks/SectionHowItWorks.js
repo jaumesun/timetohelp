@@ -47,11 +47,6 @@ const SectionHowItWorks = props => {
           </p>
         </div>
       </div>
-      <div className={css.createListingLink}>
-        <OwnListingLink listing={currentUserListing} listingFetched={currentUserListingFetched}>
-          <FormattedMessage id="SectionHowItWorks.createListingLink" />
-        </OwnListingLink>
-      </div>
     </div>
   );
 };

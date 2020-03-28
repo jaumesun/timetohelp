@@ -23,6 +23,7 @@ import {
   BookingPanel,
   NamedLink,
   ReviewModal,
+  ExternalLink,
   UserDisplayName,
 } from '../../components';
 import { SendMessageForm } from '../../forms';
@@ -298,11 +299,33 @@ export class TransactionPanelComponent extends Component {
       id: 'TransactionPanel.sendingMessageNotAllowed',
     });
 
+    const textVC = intl.formatMessage({
+      id: 'TransactionPanel.textVC',
+    });
+
+    const text2VC = intl.formatMessage({
+      id: 'TransactionPanel.text2VC',
+    });
+
+    const buttonVC = intl.formatMessage({
+      id: 'TransactionPanel.buttonVC',
+    });
+
+    const textReview = intl.formatMessage({
+      id: 'TransactionPanel.textReview',
+    });
+
+
     const paymentMethodsPageLink = (
       <NamedLink name="PaymentMethodsPage">
         <FormattedMessage id="TransactionPanel.paymentMethodsPageLink" />
       </NamedLink>
     );
+
+    const vcLink = `meet.jit.si/timetohelp-${currentProvider.attributes.profile.displayName.slice(0, -2)}-${currentCustomer.attributes.profile.displayName.slice(0, -2)}`;
+    const vcUrl = `https:\/\/meet.jit.si/timetohelp-${currentProvider.attributes.profile.displayName.slice(0, -2)}-${currentCustomer.attributes.profile.displayName.slice(0, -2)}`;
+
+
 
     const classes = classNames(rootClassName || css.root, className);
 
@@ -336,6 +359,24 @@ export class TransactionPanelComponent extends Component {
               listingTitle={listingTitle}
               listingDeleted={listingDeleted}
             />
+
+            {stateData.headingState == `accepted` ? (
+              <div className={css.videocall}>
+                <div className={css.videocallSpan}>{textVC}</div>
+                <div className={css.videocallSpan}><ExternalLink href={vcUrl}>{vcLink}</ExternalLink></div>
+                <ExternalLink className={css.videocallButton} href={vcUrl}>{buttonVC}</ExternalLink>
+              </div>
+              ) : null}
+            {stateData.headingState == `delivered` ? (
+              <div className={css.videocall}>
+                <div className={css.videocallSpan}>{text2VC}</div>
+                <div className={css.videocallSpan}><ExternalLink href={vcUrl}>{vcLink}</ExternalLink></div>
+                <ExternalLink className={css.videocallButton} href={vcUrl}>{buttonVC}</ExternalLink>
+                <div className={css.videocallSpan2}>{textReview}</div>
+              </div>
+              ) : null}
+
+
 
             <div className={css.bookingDetailsMobile}>
               <AddressLinkMaybe

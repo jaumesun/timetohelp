@@ -1,1 +1,1 @@
-{{transaction.customer.display-name}} has requested to book {{transaction.listing.title}}
+{{transaction.customer.display-name}} has requested to book a videoconference session with you

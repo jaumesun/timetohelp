@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { propTypes } from '../../util/types';
+import { FormattedMessage } from '../../util/reactIntl';
+import { NamedLink } from '../../components';
 import config from '../../config';
 import {
   Page,
@@ -69,11 +71,13 @@ export const LandingPageComponent = props => {
           <TopbarContainer />
         </LayoutWrapperTopbar>
         <LayoutWrapperMain>
-           <div className={css.sections}>
+          <div className={css.sections}>
             <div className={css.intromessage}>
-              {introText1}
-              <a href="/l/new">{introText2}</a>
-              {introText3}
+              <FormattedMessage id="LandingPage.introText1" />
+              <NamedLink name="NewListingPage">
+                <FormattedMessage id="LandingPage.introText2" />
+              </NamedLink>
+              <FormattedMessage id="LandingPage.introText3" />
             </div>
           </div>       
           <div className={css.heroContainer}>
@@ -91,6 +95,21 @@ export const LandingPageComponent = props => {
                   currentUserListing={currentUserListing}
                   currentUserListingFetched={currentUserListingFetched}
                 />
+              </div>
+            </li>
+            <li className={css.csection}>
+              <div className={css.sectionContent}>
+                <div className={css.canhelp}>
+                  <h1 className={css.canhelpMainTitle}>
+                    <FormattedMessage id="LandingPage.canhelpText1" />
+                  </h1>
+                  <h2 className={css.canhelpSubTitle}>
+                    <FormattedMessage id="LandingPage.canhelpText2" />
+                  </h2>
+                  <NamedLink name="NewListingPage" className={css.canhelpButton}>
+                    <FormattedMessage id="LandingPage.canhelpText3" />
+                  </NamedLink>
+                </div>
               </div>
             </li>
           </ul>

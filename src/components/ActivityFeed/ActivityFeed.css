@@ -72,7 +72,7 @@
 }
 
 .ownMessageContent {
-  background-color: var(--marketplaceColor);
+  background-color: var(--successColor);
   color: var(--matterColorLight);
   float: right;
 }

@@ -12,7 +12,7 @@ import {
 } from '../../components';
 
 import css from './AboutPage.css';
-import image from './about-us-1200.jpg';
+import image from './about-us-1200-elena-mozhvilo.jpg';
 
 const AboutPage = () => {
   const { siteTwitterHandle, siteFacebookPage } = config;
@@ -35,7 +35,7 @@ const AboutPage = () => {
         </LayoutWrapperTopbar>
 
         <LayoutWrapperMain className={css.staticPageWrapper}>
-          <img className={css.coverImage} src={image} alt="Time to help" />
+          <img className={css.coverImage} src={image} alt="Artwork by Elena Mozhvilo" />
 
           <div className={css.contentWrapper}>
             <div className={css.contentSide}>
@@ -44,16 +44,11 @@ const AboutPage = () => {
 
             <div className={css.contentMain}>
               <h2>
-                Time to help is a non-profit initiative by a group of sharing economy enthusiasts from Barcelona. 
+                Time to help is a non-profit initiative by a group of sharing economy enthusiasts from Barcelona, Málaga and Paris. 
               </h2>
 
               <p>
-                Aiming to quickly set up a directory of people who can help others remotely for free during the covid-19 pandemic, this project has been implemented using <a href="http://sharetribe.com" target="_blank">Sharetribe Flex</a> and <a href="http://meet.jit.si" target="_blank">Jitsi</a>.<br/><br/> The site does not review or verify the information provided by users, so please use it at your own discretion and risk.
-              </p>
-
-              <h3 className={css.subtitle}>Want to be on the directory to help others via videoconference? </h3>
-              <p>
-                Create your listing via this <a href="../l/new">link</a>
+                Aiming to quickly set up a directory of people who can help others remotely for free during the covid-19 pandemic, this project has been implemented using <a href="http://sharetribe.com" target="_blank">Sharetribe Flex</a> and <a href="http://meet.jit.si" target="_blank">Jitsi</a>.<br/><br/> The project will be deactivated when the pandemic ends, and all its users and data will be deleted.<br/><br/> The site does not review or verify the information provided by users, so please use it at your own discretion and risk.
               </p>
 
               <h3 id="contact" className={css.subtitle}>

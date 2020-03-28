@@ -18,7 +18,7 @@ const EditListingDescriptionFormComponent = props => (
     {...props}
     render={formRenderProps => {
       const {
-        certificate,
+        certificate,       
         className,
         disabled,
         ready,
@@ -114,7 +114,7 @@ const EditListingDescriptionFormComponent = props => (
             name="certificate"
             certificate={certificate}
             intl={intl}
-          />
+          />      
 
           <Button
             className={css.submitButton}

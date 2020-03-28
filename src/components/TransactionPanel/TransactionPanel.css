@@ -158,6 +158,48 @@
   }
 }
 
+.videocall {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--successColor);
+  border-radius: 2px;
+  background-color: var(--successColorLight);
+  padding: 18px;
+  color: var(--successColorDark);
+  font-size: 24px;
+  line-height: 30px;
+  margin: 29px 24px 0 24px;
+
+  @media (--viewportMedium) {
+    max-width: 80%;
+    margin: 24px 24px 0 24px;
+  }
+
+  @media (--viewportLarge) {
+    max-width: 100%;
+    margin: 15px 0 0 0;
+  }
+
+}
+
+.videocallSpan {
+  margin: 0 0 15px 0;
+}
+
+.videocallSpan2 {
+  margin: 25px 0 15px 0;
+  color: var(--attentionColor);
+}
+
+.videocallButton {
+  @apply --marketplaceButtonStyles;
+
+  @media (--viewportMedium) {
+    display: block;
+    width: 260px;
+  }
+}
+
 .headingSale {
   margin: 18px 24px 0 24px;
   padding: 5px 0 1px 0;
@@ -259,6 +301,7 @@
     margin-bottom: 0;
   }
 }
+
 
 /* AddressLinkMaybe subcomponent */
 .address {

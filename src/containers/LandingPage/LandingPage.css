@@ -94,6 +94,76 @@
 
 }
 
+.canhelp {
+    font-family: 'sofiapro', Helvetica, Arial, sans-serif;
+    font-weight: var(--fontWeightMedium);
+    font-size: 15px;
+    line-height: 18px;
+
+  @media (--viewportMedium) {
+    max-width: 100%;
+    font-family: 'sofiapro', Helvetica, Arial, sans-serif;
+    font-weight: var(--fontWeightMedium);
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  @media (--viewportLarge) {
+    max-width: 1128px;
+    margin: 24px auto 24px auto;
+    font-family: 'sofiapro', Helvetica, Arial, sans-serif;
+    font-weight: var(--fontWeightMedium);
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  @media (--viewportXLarge) {
+    max-width: 1056px;
+    padding: 0;
+    font-family: 'sofiapro', Helvetica, Arial, sans-serif;
+    font-weight: var(--fontWeightMedium);
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+}
+
+.canhelpMainTitle {
+  @apply --marketplaceH1FontStyles;
+
+  @media (--viewportMedium) {
+    max-width: 625px;
+  }
+}
+
+.canhelpSubTitle {
+  @apply --marketplaceBodyFontStyles;
+  margin: 0 0 24px 0;
+  line-height: 18px;
+  max-width: 625px;
+
+  @media (--viewportMedium) {
+    margin: 0 0 36px 0;
+    line-height: 24px;
+  }
+  @media (--viewportLarge) {
+    line-height: 24px;
+  }
+  @media (--viewportXLarge) {
+    line-height: 24px;
+  }
+    
+}
+
+.canhelpButton {
+  @apply --marketplaceButtonStyles;
+
+  @media (--viewportMedium) {
+    display: block;
+    width: 260px;
+  }
+}
+
 .sections {
   margin: 0;
   padding-top: 1px;
@@ -116,6 +186,11 @@
   @media (--viewportMedium) {
     border-radius: 4px;
   }
+}
+
+.csection {
+  background-color: var( --marketplaceColorLight);
+  overflow: auto;
 }
 
 .sectionContent {

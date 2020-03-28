@@ -30,6 +30,7 @@ export const certificate = [
   { key: 'other', label: 'other' },
 ];
 
+
 // Price filter configuration
 // Note: unlike most prices this is not handled in subunits
 export const priceFilterConfig = {

@@ -173,6 +173,11 @@
   }
 }
 
+.listItemSp {
+  min-height: 24px;
+  margin-bottom: 16px;
+}
+
 .link {
   /* Font */
   @apply --marketplaceH4FontStyles;
