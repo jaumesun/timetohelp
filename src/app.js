@@ -38,7 +38,7 @@ import defaultMessages from './translations/en.json';
 
 // Step 3:
 // If you are using a non-english locale, point `messagesInLocale` to correct .json file
-import messagesInLocale from './translations/es.json';
+//import messagesInLocale from './translations/es.json';
 import messagesInLocale from './translations/fr.json';
 
 
