@@ -16,7 +16,7 @@ const i18n = {
     ...
     6: Saturday
   */
-  firstDayOfWeek: 1,
+  firstDayOfWeek: 0,
 };
 
 // Should search results be ordered by distance to origin.
