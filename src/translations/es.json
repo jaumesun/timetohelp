@@ -1,6 +1,6 @@
 {
   "ActivityFeed.deletedListing": "anuncio borrado",
-  "ActivityFeed.leaveAReview": "Deja una valoración para { displayName }.",
+  "ActivityFeed.leaveAReview": "Deja una valoración para { displayName }. ",
   "ActivityFeed.leaveAReviewSecond": "Deja una valoración para { displayName } y podrás ver lo que ha dicho sobre ti.",
   "ActivityFeed.ownTransitionAccept": "Has aceptado la solicitud de reserva.",
   "ActivityFeed.ownTransitionDecline": "Has rechazado la solicitud de reserva.",

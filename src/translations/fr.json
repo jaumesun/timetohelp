@@ -1,6 +1,6 @@
 {
   "ActivityFeed.deletedListing": "Annonce supprimée",
-  "ActivityFeed.leaveAReview": "Laissez un commentaire sur { displayName }.",
+  "ActivityFeed.leaveAReview": "Laissez un commentaire sur { displayName }. ",
   "ActivityFeed.leaveAReviewSecond": "Laissez un commentaire sur { displayName } pour voir leur commentaire sur vous-même.",
   "ActivityFeed.ownTransitionAccept": "Vous avez accepté la demande de réservation.",
   "ActivityFeed.ownTransitionDecline": "Vous avez refusé la demande de réservation.",
