@@ -39,6 +39,7 @@ import defaultMessages from './translations/en.json';
 // Step 3:
 // If you are using a non-english locale, point `messagesInLocale` to correct .json file
 import messagesInLocale from './translations/es.json';
+import messagesInLocale from './translations/fr.json';
 
 
 // If translation key is missing from `messagesInLocale` (e.g. fr.json),
@@ -63,7 +64,7 @@ const messages = isDefaultLanguageInUse
   ? defaultMessages
   : addMissingTranslations(defaultMessages, messagesInLocale);
 
-const isTestEnv = process.env.NODE_ENV === 'production';
+const isTestEnv = process.env.NODE_ENV === 'test';
 
 // Locale should not affect the tests. We ensure this by providing
 // messages with the key as the value of each message.
