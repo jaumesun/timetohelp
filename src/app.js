@@ -64,8 +64,8 @@ var messagesInLocale;
 
 switch (navigator.language) {    
   case 'en-GB':
-      config.locale = 'en';
       messagesInLocale = defaultMessages;
+      config.locale = 'en';
       console.log("EN-GB");
       break;
   case 'en-US':
@@ -89,6 +89,7 @@ switch (navigator.language) {
       console.log("ES");
       break;
   default:
+      messagesInLocale = defaultMessages;
       config.locale = 'en';
       console.log("default");
 }
