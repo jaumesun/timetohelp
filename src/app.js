@@ -73,6 +73,11 @@ switch (navigator.language) {
       config.locale = 'en';
       console.log("EN-US");
       break;
+  case 'es':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
   case 'es-ES':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
       config.locale = 'es';
@@ -93,12 +98,12 @@ switch (navigator.language) {
       config.locale = 'es';
       console.log("ES");
       break;
-  case 'ga':
+  case 'gl':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
       config.locale = 'es';
       console.log("ES");
       break;
-  case 'ga_ES':
+  case 'gl_ES':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
       config.locale = 'es';
       console.log("ES");
@@ -107,6 +112,7 @@ switch (navigator.language) {
       messagesInLocale = defaultMessages;
       config.locale = 'en';
       console.log("default");
+      break;
 }
 
 const messages = messagesInLocale;
