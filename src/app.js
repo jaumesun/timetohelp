@@ -39,7 +39,8 @@ import defaultMessages from './translations/en.json';
 // Step 3:
 // If you are using a non-english locale, point `messagesInLocale` to correct .json file
 //import messagesInLocale from './translations/es.json';
-import messagesInLocale from './translations/fr.json';
+import messagesInLocale_ES from './translations/es.json';
+import messagesInLocale_FR from './translations/fr.json';
 
 
 // If translation key is missing from `messagesInLocale` (e.g. fr.json),
@@ -59,10 +60,37 @@ const addMissingTranslations = (sourceLangTranslations, targetLangTranslations) 
 };
 
 const isDefaultLanguageInUse = config.locale === 'en';
+var messagesInLocale;
 
-const messages = isDefaultLanguageInUse
-  ? defaultMessages
-  : addMissingTranslations(defaultMessages, messagesInLocale);
+switch (navigator.language) {    
+  case 'en-GB':
+      config.locale = 'en';
+      messagesInLocale = defaultMessages;
+      console.log("EN-GB");
+      break;
+  case 'en-US':
+      messagesInLocale = defaultMessages;
+      config.locale = 'en';
+      console.log("EN-US");
+      break;
+  case 'es-ES':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
+  case 'fr-FR':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_FR);
+      config.locale = 'fr';
+      console.log("FR");
+      break;
+  default:
+      config.locale = 'en';
+      console.log("default");
+}
+
+
+const messages = messagesInLocale;
+
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -71,6 +99,7 @@ const isTestEnv = process.env.NODE_ENV === 'test';
 const testMessages = mapValues(messages, (val, key) => key);
 const localeMessages = isTestEnv ? testMessages : messages;
 
+
 const setupLocale = () => {
   if (isTestEnv) {
     // Use english as a default locale in tests
@@ -78,11 +107,13 @@ const setupLocale = () => {
     config.locale = 'en';
     return;
   }
-
   // Set the Moment locale globally
   // See: http://momentjs.com/docs/#/i18n/changing-locale/
   moment.locale(config.locale);
 };
+
+
+
 
 export const ClientApp = props => {
   const { store } = props;
