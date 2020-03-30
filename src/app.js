@@ -83,7 +83,22 @@ switch (navigator.language) {
       config.locale = 'es';
       console.log("ES");
       break;
+  case 'ca_ES':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
   case 'ca-valencia':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
+  case 'ga':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
+  case 'ga_ES':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
       config.locale = 'es';
       console.log("ES");
