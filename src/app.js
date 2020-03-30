@@ -40,7 +40,7 @@ import defaultMessages from './translations/en.json';
 // If you are using a non-english locale, point `messagesInLocale` to correct .json file
 //import messagesInLocale from './translations/es.json';
 import messagesInLocale_ES from './translations/es.json';
-import messagesInLocale_FR from './translations/fr.json';
+//import messagesInLocale_FR from './translations/fr.json';
 
 
 // If translation key is missing from `messagesInLocale` (e.g. fr.json),
@@ -88,17 +88,10 @@ switch (navigator.language) {
       config.locale = 'es';
       console.log("ES");
       break;
-  case 'fr-FR':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_FR);
-      config.locale = 'fr';
-      console.log("FR");
-      break;
   default:
       config.locale = 'en';
       console.log("default");
 }
-
-alert(navigator.language);
 
 const messages = messagesInLocale;
 
