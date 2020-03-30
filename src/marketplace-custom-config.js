@@ -5,9 +5,9 @@
 export const CatSp = [
   { key: 'health', label: 'Health' },
   { key: 'education', label: 'Education' },
-  { key: 'business & law', label: 'Business & Law' },
-  { key: 'Technical', label: 'Technical' },
-  { key: 'Other', label: 'Other' },
+  { key: 'businesslaw', label: 'Business & Law' },
+  { key: 'technical', label: 'Technical' },
+  { key: 'other', label: 'Other' },
 ];
 
 export const certificate = [

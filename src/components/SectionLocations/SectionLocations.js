@@ -53,27 +53,27 @@ const SectionLocations = props => {
         {locationLink(
           'Health',
           heaImage,
-          '?pub_CatSp=Health'
+          '?pub_CatSp=health'
         )}
         {locationLink(
           'Education',
           eduImage,
-          '?pub_CatSp=Education'
+          '?pub_CatSp=education'
         )}
         {locationLink(
           'Business & Law',
           bzlImage,
-          '?pub_CatSp=Business & Law'
+          '?pub_CatSp=businesslaw'
         )}
         {locationLink(
           'Technical',
           tecImage,
-          '?pub_CatSp=Technical'
+          '?pub_CatSp=technical'
         )}
         {locationLink(
           'Others',
           othImage,
-          '?pub_CatSp=Others'
+          '?pub_CatSp=other'
         )}
       </div>
     </div>
