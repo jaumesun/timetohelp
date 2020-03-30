@@ -78,6 +78,16 @@ switch (navigator.language) {
       config.locale = 'es';
       console.log("ES");
       break;
+  case 'ca':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
+  case 'ca-valencia':
+      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
+      config.locale = 'es';
+      console.log("ES");
+      break;
   case 'fr-FR':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_FR);
       config.locale = 'fr';
@@ -88,6 +98,7 @@ switch (navigator.language) {
       console.log("default");
 }
 
+alert(navigator.language);
 
 const messages = messagesInLocale;
 
