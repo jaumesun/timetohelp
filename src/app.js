@@ -62,7 +62,7 @@ const addMissingTranslations = (sourceLangTranslations, targetLangTranslations) 
 const isDefaultLanguageInUse = config.locale === 'en';
 var messagesInLocale;
 
-switch (config.locale) {    
+switch (Intl.DateTimeFormat().resolvedOptions().locale) {    
   case 'en-GB':
       messagesInLocale = defaultMessages;
       config.locale = 'en';
