@@ -12,7 +12,7 @@ export const CatSp = [
 
 export const certificate = [
   { key: 'none', label: 'None', hideFromFilters: true, hideFromListingInfo: true },
-  { key: 'artdesign', label: 'art-design' },
+  { key: 'artist', label: 'artist' },
   { key: 'business-manager', label: 'business-manager' },
   { key: 'food-agriculture', label: 'food-agriculture' },
   { key: 'engineer', label: 'engineer' },
@@ -22,6 +22,7 @@ export const certificate = [
   { key: 'marketing-manager', label: 'marketing-manager' },
   { key: 'medical-doctor', label: 'medical-doctor' },
   { key: 'mechanic', label: 'mechanic' },
+  { key: 'music', label: 'music' },  
   { key: 'nurse', label: 'nurse' },
   { key: 'odontologist', label: 'odontologist' },
   { key: 'pharmacist', label: 'pharmacist' },
