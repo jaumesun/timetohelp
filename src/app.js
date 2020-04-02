@@ -63,47 +63,60 @@ const isDefaultLanguageInUse = config.locale === 'en';
 var messagesInLocale;
 
 switch (Intl.DateTimeFormat().resolvedOptions().locale) {    
-  case 'en-GB':
-      messagesInLocale = defaultMessages;
-      config.locale = 'en';
-      console.log("EN-GB");
-      break;
+  case 'en-us':
   case 'en-US':
+  case 'en-gb':
+  case 'en-GB':  
       messagesInLocale = defaultMessages;
       config.locale = 'en';
-      console.log("EN-US");
+      console.log("EN");
       break;
-  case 'es':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
+  case 'es-es':
   case 'es-ES':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
   case 'ca':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
-  case 'ca_ES':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
+  case 'ca-ES':
+  case 'ca-es':
   case 'ca-valencia':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
   case 'gl':
-      messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
-      config.locale = 'es';
-      console.log("ES");
-      break;
-  case 'gl_ES':
+  case 'gl-ES':
+  case 'gl-es':
+  case 'es-ar':
+  case 'es-bo':
+  case 'es-cl':
+  case 'es-co':
+  case 'es-cr':
+  case 'es-do':
+  case 'es-ec':
+  case 'es-sv':
+  case 'es-gt':
+  case 'es-hn':
+  case 'es-mx':
+  case 'es-ni':
+  case 'es-pa':
+  case 'es-py':
+  case 'es-pe':
+  case 'es-pr':
+  case 'es-uy':
+  case 'es-ve':
+  case 'es-AR':
+  case 'es-BO':
+  case 'es-CL':
+  case 'es-CO':
+  case 'es-CR':
+  case 'es-DO':
+  case 'es-EC':
+  case 'es-SV':
+  case 'es-GT':
+  case 'es-HN':
+  case 'es-MX':
+  case 'es-NI':
+  case 'es-PA':
+  case 'es-PY':
+  case 'es-PE':
+  case 'es-PR':
+  case 'es-UY':
+  case 'es-VE':
+  case 'es':
       messagesInLocale = addMissingTranslations(defaultMessages, messagesInLocale_ES);
       config.locale = 'es';
       console.log("ES");
